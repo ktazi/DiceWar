@@ -2,11 +2,13 @@ package Jeu;
 import java.util.*;
 
 public class Joueur {
+	private static int nbjoueurs = 0;
 	private int id;
 	private ArrayList<Territoire> liste_territoire;
 	
-	public Joueur(int id_joueur) {
-		this.setId(id_joueur);
+	public Joueur() {
+		nbjoueurs++;
+		this.id = nbjoueurs;
 		this.liste_territoire = new ArrayList<Territoire>();
 	}
 	
@@ -35,10 +37,6 @@ public class Joueur {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 }
