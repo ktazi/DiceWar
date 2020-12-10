@@ -3,14 +3,16 @@ import java.util.*;
 
 public class Territoire {
 	private int id;
+	private static int nbterritoire = 0;
 	private int idjoueur;
 	private int force;
 	private LinkedList<Integer> territoire_voisin;
 	
-	public Territoire(int id_terr, int id_joueur, int de) {
-		this.id = id_terr;
-		this.idjoueur = id_joueur;
-		this.force = de;
+	public Territoire(Joueur j, int de) {
+		nbterritoire++;
+		this.id = nbterritoire;
+		this.idjoueur = j.getId();
+		this.force = de; //le random du nombre de dé peut se faire dans le constructeur
 	}
 	
 	
