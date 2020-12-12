@@ -14,11 +14,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Drawing Operations Test");
+        primaryStage.setTitle("Dice War");
         Group root = new Group();
         Canvas canvas = new Canvas(500, 500);
         grc = canvas.getGraphicsContext2D();
-        PlateauJeu plateauJeu = new PlateauJeu(30, 500, 500, grc);
+        PlateauJeu plateauJeu = new PlateauJeu( 500, 500, grc);
         plateauJeu.drawthings();
         root.getChildren().add(canvas);
         primaryStage.setScene(new Scene(root));
