@@ -19,12 +19,18 @@ public class Triangle implements Comparable{
     }
     //calcule le centre du cercle circonscrit
     private Point centerCircumbscribedCircle(){
+
         double a1 = 2*(p2.X() - p1.X());
         double a2 = 2*(p2.X() - p3.X());
         double b1 = 2*(p2.Y() - p1.Y());
         double b2 = 2*(p2.Y() - p3.Y());
-        double c1 = Math.pow(p1.X(),2) + Math.pow(p1.Y(),2) -Math.pow(p2.X(),2) - Math.pow(p2.Y(),2);
-        double c2 = Math.pow(p3.X(),2) + Math.pow(p3.Y(),2) -Math.pow(p2.X(),2) - Math.pow(p2.Y(),2);
+        double c1 = Math.pow(p1.X(),2) + Math.pow(p1.Y(),2) - Math.pow(p2.X(),2) - Math.pow(p2.Y(),2);
+        double c2 = Math.pow(p3.X(),2) + Math.pow(p3.Y(),2) - Math.pow(p2.X(),2) - Math.pow(p2.Y(),2);
+        /*System.out.println("p1" + p1);
+        System.out.println("p2" +p2);
+        System.out.println("p3" +p3);
+        System.out.println(((a1 * b2) - (b1*a2)));
+        System.out.println(((a1*b2) -(b1*a2)));*/
         return new Point(((b2 * (-c1)) - (b1*(-c2)))/((a1 * b2) - (b1*a2)), ((a1 * (-c2))-(a2 * (-c1)))/((a1*b2) -(b1*a2)));
     }
     //calcule le rayon du cercle
@@ -47,7 +53,7 @@ public class Triangle implements Comparable{
     @Override
     public int compareTo(Object o) {
         if (o instanceof Triangle){
-            return ((Triangle) o).center == center ? 0 : 1;
+            return ((Triangle) o).center == center && ((Triangle) o).radius == radius ? 0 : -1;
         }
         throw new ClassCastException("Not a triangle");
     }

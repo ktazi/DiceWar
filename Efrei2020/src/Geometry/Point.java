@@ -17,6 +17,9 @@ public class Point{
     public boolean equals(Point i){
         return (i.x == x) && i.y == y;
     }
-
+    @Override
+    public String toString(){
+        return x+ " "+ y;
+    }
 
 }

@@ -17,7 +17,7 @@ public class PlateauJeu{
     private JPanel panel;
     private GraphicsContext graphicsContext;
 
-    final int intervale = 100;
+    final int intervale = 150;
 
 
     public PlateauJeu(int dimx, int dimy, GraphicsContext gc){
@@ -37,6 +37,11 @@ public class PlateauJeu{
             graphicsContext.setFill(Color.rgb((int)(255* Math.random()),(int)(255* Math.random()),(int)(255* Math.random())));
             double[][] polygon = t.toPolygon();
             graphicsContext.fillPolygon(polygon[0], polygon[1], 3);
+        }
+        for (Triangle t : list){
+            graphicsContext.setStroke(Color.BLACK);
+            double[][] polygon = t.toPolygon();
+            graphicsContext.strokePolygon(polygon[0], polygon[1], 3);
         }
     }
 
