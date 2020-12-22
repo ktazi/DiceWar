@@ -16,15 +16,16 @@ public class PlateauJeu{
     private ArrayList<ArrayList<HexagonCase>> tiles;
     private ArrayList<Territory> territories;
 
-    public PlateauJeu(int dimx, int dimy, int nbTerritory){
 
-        double x0 = 10;
-        double y0 = 10;
+    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext){
+        double x0 = 64;
+        double y0 = 64;
         tiles = new ArrayList<>();
         for (int i = 0; i < 25; i++){
             tiles.add(new ArrayList<>());
             for(int j = 0; j <25 ; j++){
-                tiles.get(i).add(new HexagonCase(x0+(i*Math.sqrt(3)* HexagonCase.SIZE)+(j%2==0?0:HexagonCase.SIZE*Math.sqrt(3)/2) , y0 + ((j*6* HexagonCase.SIZE)/(double)4),i,j));
+                tiles.get(i).add(new HexagonCase(x0+(i*Math.sqrt(3)* HexagonCase.SIZE)+(j%2==0?0:HexagonCase.SIZE*Math.sqrt(3)/2) ,
+                        y0 + ((j*6* HexagonCase.SIZE)/(double)4),i,j));
             }
         }
         ArrayList<ArrayList<HexagonCase>> racines = new ArrayList<>();
@@ -39,7 +40,6 @@ public class PlateauJeu{
                 if (!cond){
                     racines.get(i).add(tiles.get(x).get(y));
                     tiles.get(x).get(y).setTerritory(i);
-                    System.out.println("Territory " + i + " : "+x+" , "+y);
                 }
             }while (cond);
         }
@@ -51,7 +51,6 @@ public class PlateauJeu{
                 if (tiles.get(i).get(j).getTerritory()==-1){
                     for(int k = 0; k < racines.size(); k++){
                         if(distanceMin == -1){
-                            System.out.println("yes");
                             distanceMin = racines.get(k).get(0).distance(tiles.get(i).get(j));
                             territory = k;
                         }
@@ -67,11 +66,14 @@ public class PlateauJeu{
         }
         territories = new ArrayList<>();
         for (int i = 0; i < racines.size(); i++){
-            territories.add(new Territory(racines.get(i), Color.rgb((i*13)%255,(i*214)%255,(i*233)%255 )));
+            territories.add(new Territory(racines.get(i), Color.rgb((i*13)%255,(i*214)%255,(i*233)%255,0.2 ), graphicsContext));
         }
     }
-
     public ArrayList<ArrayList<HexagonCase>> getTiles() {
         return tiles;
+    }
+
+    public ArrayList<Territory> getTerritories() {
+        return territories;
     }
 }

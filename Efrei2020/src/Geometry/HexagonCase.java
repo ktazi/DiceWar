@@ -1,10 +1,12 @@
 package Geometry;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 
 public class HexagonCase {
-    public static final int SIZE = 10;
+    public static final int SIZE = 60;
     private double[][] polygon;
     private double centerX;
     private double centerY;
@@ -19,8 +21,11 @@ public class HexagonCase {
     private int cubeCoorZ;
     private int territory;
     private Color color;
+    private Color colorHighlight;
 
     public HexagonCase(double x1, double y1, int offsetCoorX, int offsetCoorY){
+        centerX = x1;
+        centerY = y1;
         territory = -1;
         selfId = ID;
         ID++;
@@ -44,7 +49,6 @@ public class HexagonCase {
         polygon[1][5]=y1 - (SIZE/(double)2);
         shape = new Polygon();
         shape.setFill(color);
-        shape.setStroke(Color.BLACK);
         for (int i = 0; i < polygon[0].length; i++){
             shape.getPoints().add(polygon[0][i]);
             shape.getPoints().add(polygon[1][i]);
@@ -53,14 +57,14 @@ public class HexagonCase {
         cubeCoorZ = offsetCoorY;
         cubeCoorY = -cubeCoorX-cubeCoorZ;
         shape.setOnMouseClicked(mouseEvent -> System.out.println(territory));
-        shape.setOnMouseEntered(mouseEvent->shape.setFill(Color.RED));
+        shape.setOnMouseEntered(mouseEvent->shape.setFill(Color.rgb(255,255,255,0.2)));
         shape.setOnMouseExited(mouseEvent->shape.setFill(color));
-
     }
     public void setColor(Color color){
         this.color = color;
         shape.setFill(color);
     }
+
     public Polygon getShape(){
         return shape;
     }
@@ -74,6 +78,11 @@ public class HexagonCase {
         return (Math.abs(tile.cubeCoorX - cubeCoorX) +  Math.abs(tile.cubeCoorY - cubeCoorY) +  Math.abs(tile.cubeCoorZ - cubeCoorZ))/2;
     }
 
+    public double getCenterX() {
+        return centerX;
+    }
 
-
+    public double getCenterY() {
+        return centerY;
+    }
 }
