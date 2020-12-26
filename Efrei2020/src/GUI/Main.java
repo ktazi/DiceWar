@@ -27,10 +27,7 @@ public class Main extends Application {
         Group root = new Group();
         Text label = new Text("Dice war");
         label.setFont(Font.font("Courier New", 30));
-        label.setFill(Color.LIMEGREEN);
-        Text textPlayer = new Text("Turn : Yellow");
-        textPlayer.setFill(Color.YELLOW);
-        textPlayer.setFont(Font.font("Courier New", 20));
+        label.setFill(Color.LIGHTGRAY);
         Canvas canvas = new Canvas(3000,3000);
         canvas.getGraphicsContext2D().setFill(Color.BLACK);
         canvas.getGraphicsContext2D().fillRect(0,0,3000,3000);
@@ -49,11 +46,14 @@ public class Main extends Application {
         scrollPane.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
         AnchorPane.setTopAnchor(label,40.);
         AnchorPane.setLeftAnchor(label,40.);
-        anchorPane.getChildren().add(textPlayer);
-        AnchorPane.setTopAnchor(textPlayer,100.);
-        AnchorPane.setLeftAnchor(textPlayer,40.);
         mainPane.setCenter(anchorPane);
         LogPanel logPanel = new LogPanel();
+        logPanel.addPanel(new TurnPanel(Game.COLOR.GREEN));
+        logPanel.addPanel(new BattlePanel(Game.COLOR.GREEN, Game.COLOR.CYAN, 100,133,false));
+        logPanel.addPanel(new TurnPanel(Game.COLOR.YELLOW));
+        logPanel.addPanel(new BattlePanel(Game.COLOR.YELLOW, Game.COLOR.MAGENTA,23,8,true));
+        logPanel.addPanel(new TurnPanel(Game.COLOR.CYAN));
+
         mainPane.setRight(logPanel);
         mainPane.setPadding(new Insets(0));
         primaryStage.setScene(new Scene(mainPane, 1200, 500));

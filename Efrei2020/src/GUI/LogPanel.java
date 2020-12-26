@@ -1,84 +1,28 @@
 package GUI;
 
-import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class LogPanel extends VBox {
+public class LogPanel extends VBox  {
+
+    VBox vBox;
+
 
     public LogPanel() throws FileNotFoundException {
         super();
         ScrollPane scrollPane = new ScrollPane();
-        VBox root2 = new VBox();
+        vBox = new VBox();
         FileInputStream inputstream = new FileInputStream("Efrei2020/src/Assets/log.png");
         AnchorPane anchorPane = new AnchorPane();
         Image logImage = new Image(inputstream);
         ImageView imageLog = new ImageView(logImage);
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        root2.getChildren().add(new Text("test"));
-        scrollPane.setContent(root2);
+        scrollPane.setContent(vBox);
         scrollPane.setMinWidth(200);
         scrollPane.setMaxHeight(400);
         anchorPane.getChildren().add(scrollPane);
@@ -89,8 +33,13 @@ public class LogPanel extends VBox {
         setHeight(500);
         setWidth(400);
         getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
-        root2.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
+        vBox.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
     }
+
+    public void addPanel(Logs log){
+        vBox.getChildren().add((Node)log);
+    }
+
 
 
 }
