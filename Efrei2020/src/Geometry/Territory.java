@@ -10,8 +10,11 @@ public class Territory {
     private ArrayList<HexagonCase> tiles;
     private Color color;
     private int idPlayer;
+    private int force;
 
     public Territory(ArrayList<HexagonCase> tiles, Color color, GraphicsContext graphicsContext){
+        force = 1;
+        idPlayer = 1;
         this.tiles = tiles;
         for (HexagonCase hc : tiles) {
             hc.setColor(color);

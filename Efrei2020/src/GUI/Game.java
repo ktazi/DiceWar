@@ -2,8 +2,6 @@ package GUI;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -77,8 +75,6 @@ public class Game {
                 return Color.rgb(20,255,255);
         }
     }
-
-
 
     public static String colorToString(COLOR color){
         switch (color) {
