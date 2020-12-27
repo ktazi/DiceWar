@@ -13,7 +13,6 @@ public class LogPanel extends VBox  {
 
     VBox vBox;
 
-
     public LogPanel() throws FileNotFoundException {
         super();
         ScrollPane scrollPane = new ScrollPane();
