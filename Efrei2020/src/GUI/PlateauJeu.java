@@ -16,7 +16,7 @@ public class PlateauJeu{
     private ArrayList<ArrayList<HexagonCase>> tiles;
     private ArrayList<Territory> territories;
 
-    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext){
+    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, TerritoryInfo territoryInfo){
         double x0 = 64;
         double y0 = 64;
         tiles = new ArrayList<>();
@@ -65,7 +65,7 @@ public class PlateauJeu{
         }
         territories = new ArrayList<>();
         for (int i = 0; i < racines.size(); i++){
-            territories.add(new Territory(racines.get(i), Color.rgb((i*13)%255,(i*214)%255,(i*233)%255,0.4 ), graphicsContext));
+            territories.add(new Territory(racines.get(i), Color.rgb((i*13)%255,(i*214)%255,(i*233)%255,0.4 ), graphicsContext, territoryInfo));
             for (HexagonCase tile : racines.get(i)){
                 tile.setTerritory(territories.get(i));
             }

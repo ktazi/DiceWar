@@ -3,6 +3,8 @@ package Geometry;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+import java.io.FileNotFoundException;
+
 public class HexagonCase {
     public static final int SIZE = 60;
     private double[][] polygon;
@@ -50,7 +52,13 @@ public class HexagonCase {
         cubeCoorZ = offsetCoorY;
         cubeCoorY = -cubeCoorX-cubeCoorZ;
         shape.setOnMouseClicked(mouseEvent -> System.out.println(territoryId));
-        shape.setOnMouseEntered(mouseEvent->territory.enterTerritory());
+        shape.setOnMouseEntered(mouseEvent-> {
+            try {
+                territory.enterTerritory();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
         shape.setOnMouseExited(mouseEvent->territory.exitTerritory());
         territory = null;
     }

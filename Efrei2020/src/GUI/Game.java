@@ -93,7 +93,23 @@ public class Game {
         }
     }
 
-
+    public static String forceToString(int force){
+        if (force == 1)
+            return "one";
+        if (force == 2)
+            return "two";
+        if (force == 3)
+            return "three";
+        if (force == 4)
+            return "four";
+        if (force == 5)
+            return "five";
+        if (force == 6)
+            return "six";
+        if (force == 7)
+            return "seven";
+        return "eight";
+    }
 
 
 }

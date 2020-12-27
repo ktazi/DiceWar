@@ -31,7 +31,8 @@ public class Main extends Application {
         Canvas canvas = new Canvas(3000,3000);
         canvas.getGraphicsContext2D().setFill(Color.BLACK);
         canvas.getGraphicsContext2D().fillRect(0,0,3000,3000);
-        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D());
+        TerritoryInfo territoryInfo = new TerritoryInfo();
+        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), territoryInfo);
         ArrayList<ArrayList<HexagonCase>> tiles = plateauJeu.getTiles();
         root.getChildren().add(canvas);
         for(ArrayList<HexagonCase> Tiles : tiles)
@@ -53,10 +54,10 @@ public class Main extends Application {
         logPanel.addPanel(new TurnPanel(Game.COLOR.YELLOW));
         logPanel.addPanel(new BattlePanel(Game.COLOR.YELLOW, Game.COLOR.MAGENTA,23,8,true));
         logPanel.addPanel(new TurnPanel(Game.COLOR.CYAN));
-
+        mainPane.setBottom(territoryInfo);
         mainPane.setRight(logPanel);
         mainPane.setPadding(new Insets(0));
-        primaryStage.setScene(new Scene(mainPane, 1200, 500));
+        primaryStage.setScene(new Scene(mainPane, 1200, 700));
         primaryStage.show();
     }
 
