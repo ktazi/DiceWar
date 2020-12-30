@@ -1,7 +1,7 @@
 package GUI;
 
+import Gameplay.PlateauJeu;
 import Geometry.HexagonCase;
-import Geometry.Territory;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -29,12 +29,14 @@ public class Main extends Application {
         label.setFont(Font.font("Courier New", 30));
         label.setFill(Color.LIGHTGRAY);
         Canvas canvas = new Canvas(3000,3000);
-        canvas.getGraphicsContext2D().setFill(Color.BLACK);
+        canvas.getGraphicsContext2D().setFill(Color.rgb(5,20,3));
         canvas.getGraphicsContext2D().fillRect(0,0,3000,3000);
+        AnchorPane spritePane = new AnchorPane();
         TerritoryInfo territoryInfo = new TerritoryInfo();
-        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), territoryInfo);
+        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), territoryInfo, 2, spritePane);
         ArrayList<ArrayList<HexagonCase>> tiles = plateauJeu.getTiles();
         root.getChildren().add(canvas);
+        root.getChildren().add(spritePane);
         for(ArrayList<HexagonCase> Tiles : tiles)
             for (HexagonCase tile : Tiles)
                 root.getChildren().add(tile.getShape());
@@ -54,7 +56,12 @@ public class Main extends Application {
         logPanel.addPanel(new TurnPanel(Game.COLOR.YELLOW));
         logPanel.addPanel(new BattlePanel(Game.COLOR.YELLOW, Game.COLOR.MAGENTA,23,8,true));
         logPanel.addPanel(new TurnPanel(Game.COLOR.CYAN));
-        mainPane.setBottom(territoryInfo);
+        AnchorPane bottom = new AnchorPane();
+        bottom.getChildren().add(territoryInfo);
+        DuelPanel duelPanel = new DuelPanel();
+        bottom.getChildren().add(duelPanel);
+        AnchorPane.setLeftAnchor(duelPanel,600.);
+        mainPane.setBottom(bottom);
         mainPane.setRight(logPanel);
         mainPane.setPadding(new Insets(0));
         primaryStage.setScene(new Scene(mainPane, 1200, 700));

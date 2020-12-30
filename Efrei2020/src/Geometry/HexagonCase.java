@@ -1,12 +1,13 @@
 package Geometry;
 
+import Gameplay.Territory;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 import java.io.FileNotFoundException;
 
 public class HexagonCase {
-    public static final int SIZE = 60;
+    public static final int SIZE = 40;
     private double[][] polygon;
     private double centerX;
     private double centerY;
@@ -18,9 +19,7 @@ public class HexagonCase {
     private int cubeCoorZ;
     private int territoryId;
     private Territory territory;
-
     private Color color;
-    private Color colorHighlight;
 
     public HexagonCase(double x1, double y1, int offsetCoorX, int offsetCoorY){
         territory = null;
@@ -51,13 +50,15 @@ public class HexagonCase {
         cubeCoorX = offsetCoorX - (offsetCoorY - (offsetCoorY&1)) / 2;
         cubeCoorZ = offsetCoorY;
         cubeCoorY = -cubeCoorX-cubeCoorZ;
-        shape.setOnMouseClicked(mouseEvent -> System.out.println(territoryId));
-        shape.setOnMouseEntered(mouseEvent-> {
+        shape.setOnMouseClicked(mouseEvent -> {
             try {
-                territory.enterTerritory();
+                territory.clickTerritory();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        });
+        shape.setOnMouseEntered(mouseEvent-> {
+                territory.enterTerritory();
         });
         shape.setOnMouseExited(mouseEvent->territory.exitTerritory());
         territory = null;
@@ -66,7 +67,6 @@ public class HexagonCase {
         this.color = color;
         shape.setFill(color);
     }
-
     public Polygon getShape(){
         return shape;
     }
@@ -82,12 +82,11 @@ public class HexagonCase {
     public void setTerritory(Territory territory){
         this.territory= territory;
     }
-
     public double getCenterX() {
         return centerX;
     }
-
     public double getCenterY() {
         return centerY;
     }
+
 }

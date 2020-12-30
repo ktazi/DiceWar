@@ -63,6 +63,7 @@ public class TerritoryInfo extends HBox {
         AnchorPane.setLeftAnchor(imageView2,200.);
         AnchorPane.setTopAnchor(imageView2,30.);
         Button attack = new Button("Attack !");
+        attack.setDisable(false);
         anchorPane.getChildren().add(attack);
         AnchorPane.setLeftAnchor(attack,40.);
         AnchorPane.setTopAnchor(attack,120.);

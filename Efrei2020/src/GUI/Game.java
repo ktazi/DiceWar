@@ -8,12 +8,29 @@ import java.io.FileNotFoundException;
 public class Game {
 
     public enum COLOR{
-        BLUE,
-        MAGENTA,
-        CYAN,
-        YELLOW,
-        RED,
-        GREEN
+        BLUE(0),
+        MAGENTA(1),
+        CYAN(2),
+        YELLOW(3),
+        RED(4),
+        GREEN(5);
+        private final int value;
+        private COLOR(int value) {
+            this.value = value;
+        }
+        public static COLOR getColor(int value){
+            if (value == 0)
+                return BLUE;
+            if (value == 1)
+                return MAGENTA;
+            if (value == 2)
+                return CYAN;
+            if (value == 3)
+                return YELLOW;
+            if (value == 4)
+                return RED;
+            return GREEN;
+        }
     }
 
     public static Image getBanner(Game.COLOR color) throws FileNotFoundException {
@@ -43,7 +60,7 @@ public class Game {
     public static Color turnBackground(COLOR color){
         switch (color) {
             case BLUE:
-                return Color.rgb(6,6,36);
+                return Color.rgb(30,30,66);
             case MAGENTA:
                 Color.rgb(36,6,36);
             case RED:
@@ -76,20 +93,54 @@ public class Game {
         }
     }
 
+    public static Color colorRgbTiles(COLOR color){
+        switch (color) {
+            case BLUE:
+                return Color.rgb(20,20,255, 0.4);
+            case MAGENTA:
+                return Color.rgb(255,20,255, 0.4);
+            case RED:
+                return Color.rgb(255,20,20, 0.4);
+            case YELLOW:
+                return Color.rgb(255,255,20, 0.4);
+            case GREEN:
+                return Color.rgb(20,255,20, 0.4);
+            default:
+                return Color.rgb(20,255,255, 0.4);
+        }
+    }
+
+    public static Color colorRgbTileHighlight(COLOR color){
+        switch (color) {
+            case BLUE:
+                return Color.rgb(6,6,100, 0.4);
+            case MAGENTA:
+                return Color.rgb(100,6,100, 0.4);
+            case RED:
+                return Color.rgb(100,6,6, 0.4);
+            case YELLOW:
+                return Color.rgb(100,100,6, 0.4);
+            case GREEN:
+                return Color.rgb(6,100,6, 0.4);
+            default:
+                return Color.rgb(6,100,100, 0.4);
+        }
+    }
+
     public static String colorToString(COLOR color){
         switch (color) {
             case BLUE:
-                return "Blue";
+                return "blue";
             case MAGENTA:
-                return "Magenta";
+                return "magenta";
             case RED:
-                return "Red";
+                return "red";
             case YELLOW:
-                return "Yellow";
+                return "yellow";
             case GREEN:
-                return "Green";
+                return "green";
             default:
-                return "Cyan";
+                return "cyan";
         }
     }
 

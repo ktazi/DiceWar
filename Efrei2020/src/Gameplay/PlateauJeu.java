@@ -1,24 +1,21 @@
-package GUI;
+package Gameplay;
 
+import GUI.TerritoryInfo;
 import Geometry.HexagonCase;
-import Geometry.Territory;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
 
-import javax.swing.*;
 import java.util.*;
 
 public class PlateauJeu{
     private ArrayList<ArrayList<HexagonCase>> tiles;
     private ArrayList<Territory> territories;
+    private ArrayList<Player> players;
 
-    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, TerritoryInfo territoryInfo){
+    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, TerritoryInfo territoryInfo, int nbPlayer, AnchorPane spritePane){
         double x0 = 64;
         double y0 = 64;
+
         tiles = new ArrayList<>();
         for (int i = 0; i < 25; i++){
             tiles.add(new ArrayList<>());
@@ -65,11 +62,12 @@ public class PlateauJeu{
         }
         territories = new ArrayList<>();
         for (int i = 0; i < racines.size(); i++){
-            territories.add(new Territory(racines.get(i), Color.rgb((i*13)%255,(i*214)%255,(i*233)%255,0.4 ), graphicsContext, territoryInfo));
+            territories.add(new Territory(racines.get(i), graphicsContext, territoryInfo,i, spritePane));
             for (HexagonCase tile : racines.get(i)){
                 tile.setTerritory(territories.get(i));
             }
         }
+        players = Player.createPlayers(nbPlayer, territories);
     }
     public ArrayList<ArrayList<HexagonCase>> getTiles() {
         return tiles;
