@@ -1,5 +1,7 @@
 package Gameplay;
 
+import GUI.Game;
+import GUI.SelectionTerritoryPanel;
 import GUI.TerritoryInfo;
 import Geometry.HexagonCase;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,24 +13,27 @@ public class PlateauJeu{
     private ArrayList<ArrayList<HexagonCase>> tiles;
     private ArrayList<Territory> territories;
     private ArrayList<Player> players;
+    private Player currentPlayer;
+    public static final int NB_HEXAGONS= 25;
 
-    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, TerritoryInfo territoryInfo, int nbPlayer, AnchorPane spritePane){
+    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, SelectionTerritoryPanel selectionTerritoryPanel, int nbPlayer, AnchorPane spritePane){
         double x0 = 64;
         double y0 = 64;
-
+        //creation of the hexagon tiles
         tiles = new ArrayList<>();
-        for (int i = 0; i < 25; i++){
+        for (int i = 0; i < NB_HEXAGONS; i++){
             tiles.add(new ArrayList<>());
-            for(int j = 0; j <25 ; j++){
+            for(int j = 0; j <NB_HEXAGONS ; j++){
                 tiles.get(i).add(new HexagonCase(x0+(i*Math.sqrt(3)* HexagonCase.SIZE)+(j%2==0?0:HexagonCase.SIZE*Math.sqrt(3)/2) ,
                         y0 + ((j*6* HexagonCase.SIZE)/(double)4),i,j));
             }
         }
+        //creation of territories : choosing the root
         ArrayList<ArrayList<HexagonCase>> racines = new ArrayList<>();
         int x,y;
         for (int i = 0; i < nbTerritory; i++){
             racines.add(new ArrayList<>());
-            boolean cond = true;
+            boolean cond;
             do{
                 x = (int) (Math.random() * 25);
                 y = (int) (Math.random() * 25);
@@ -39,6 +44,7 @@ public class PlateauJeu{
                 }
             }while (cond);
         }
+        //creation of territories : voronoi
         int distanceMin, territory;
         for (int i = 0; i < tiles.size(); i++){
             for (int j = 0; j < tiles.get(i).size(); j++){
@@ -60,19 +66,34 @@ public class PlateauJeu{
                 }
             }
         }
+        //storing all territories in an array
         territories = new ArrayList<>();
         for (int i = 0; i < racines.size(); i++){
-            territories.add(new Territory(racines.get(i), graphicsContext, territoryInfo,i, spritePane));
+            territories.add(new Territory(racines.get(i), graphicsContext, selectionTerritoryPanel,i, spritePane));
             for (HexagonCase tile : racines.get(i)){
                 tile.setTerritory(territories.get(i));
             }
         }
+        //computing neighbor territories
+        for (Territory territoire : territories){
+            territoire.computeNeighbors(tiles);
+        }
+        //creation of players
         players = Player.createPlayers(nbPlayer, territories);
+        //choosing the first that plays
+        choosePlayer();
+        selectionTerritoryPanel.setPlateauJeu(this);
     }
     public ArrayList<ArrayList<HexagonCase>> getTiles() {
         return tiles;
     }
 
+    private void choosePlayer(){
+        currentPlayer = players.get((int)(Math.random()*players.size()));
+    }
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
     public ArrayList<Territory> getTerritories() {
         return territories;
     }

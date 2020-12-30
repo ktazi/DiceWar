@@ -33,7 +33,8 @@ public class Main extends Application {
         canvas.getGraphicsContext2D().fillRect(0,0,3000,3000);
         AnchorPane spritePane = new AnchorPane();
         TerritoryInfo territoryInfo = new TerritoryInfo();
-        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), territoryInfo, 2, spritePane);
+        SelectionTerritoryPanel selectionTerritoryPanel = new SelectionTerritoryPanel();
+        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), selectionTerritoryPanel, 6, spritePane);
         ArrayList<ArrayList<HexagonCase>> tiles = plateauJeu.getTiles();
         root.getChildren().add(canvas);
         root.getChildren().add(spritePane);
@@ -57,10 +58,10 @@ public class Main extends Application {
         logPanel.addPanel(new BattlePanel(Game.COLOR.YELLOW, Game.COLOR.MAGENTA,23,8,true));
         logPanel.addPanel(new TurnPanel(Game.COLOR.CYAN));
         AnchorPane bottom = new AnchorPane();
-        bottom.getChildren().add(territoryInfo);
+        bottom.getChildren().add(selectionTerritoryPanel);
         DuelPanel duelPanel = new DuelPanel();
-        bottom.getChildren().add(duelPanel);
-        AnchorPane.setLeftAnchor(duelPanel,600.);
+        //bottom.getChildren().add(duelPanel);
+        //AnchorPane.setLeftAnchor(duelPanel,600.);
         mainPane.setBottom(bottom);
         mainPane.setRight(logPanel);
         mainPane.setPadding(new Insets(0));

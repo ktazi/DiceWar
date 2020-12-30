@@ -20,8 +20,12 @@ public class HexagonCase {
     private int territoryId;
     private Territory territory;
     private Color color;
+    private int offsetx;
+    private int offsety;
 
     public HexagonCase(double x1, double y1, int offsetCoorX, int offsetCoorY){
+        offsetx=offsetCoorX;
+        offsety = offsetCoorY;
         territory = null;
         centerX = x1;
         centerY = y1;
@@ -82,11 +86,21 @@ public class HexagonCase {
     public void setTerritory(Territory territory){
         this.territory= territory;
     }
+    public Territory getTerritory(){
+        return territory;
+    }
     public double getCenterX() {
         return centerX;
     }
     public double getCenterY() {
         return centerY;
+    }
+    public int getOffsetx(){
+        return offsetx;
+    }
+
+    public int getOffsety(){
+        return offsety;
     }
 
 }

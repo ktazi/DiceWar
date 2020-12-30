@@ -5,9 +5,10 @@ import GUI.Game;
 import java.util.ArrayList;
 
 public class Player {
-    private Game.COLOR color;
+
+    private final Game.COLOR color;
     ArrayList<Territory> territories;
-    int idPlayer;
+    final int idPlayer;
     boolean eliminated;
 
     public Player(Game.COLOR color, ArrayList<Territory> territories, int idPlayer){
@@ -63,7 +64,9 @@ public class Player {
             }while(territories.get(te).getForce()==8);
             territories.get(te).setForce(territories.get(te).getForce()+1);
             force--;
-            System.out.println(force);
         }
+    }
+    public int getIdPlayer() {
+        return idPlayer;
     }
 }
