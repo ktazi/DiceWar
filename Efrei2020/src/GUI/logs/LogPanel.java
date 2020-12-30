@@ -1,5 +1,6 @@
-package GUI;
+package GUI.logs;
 
+import GUI.logs.Logs;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -31,8 +32,8 @@ public class LogPanel extends VBox  {
         getChildren().add(anchorPane);
         setHeight(500);
         setWidth(400);
-        getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
-        vBox.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
+        getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
+        vBox.getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
     }
 
     public void addPanel(Logs log){

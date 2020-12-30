@@ -1,8 +1,6 @@
 package Gameplay;
 
-import GUI.Game;
-import GUI.SelectionTerritoryPanel;
-import GUI.TerritoryInfo;
+import GUI.BattleBar.SelectionTerritoryPanel;
 import Geometry.HexagonCase;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;

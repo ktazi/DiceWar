@@ -1,4 +1,4 @@
-package GUI;
+package GUI.BattleBar;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -52,7 +52,10 @@ public class DuelPanel extends AnchorPane {
 
     }
 
+    public boolean duel(){
 
+        return true;
+    }
 
 
 }

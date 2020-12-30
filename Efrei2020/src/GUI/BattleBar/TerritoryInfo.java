@@ -1,9 +1,7 @@
-package GUI;
+package GUI.BattleBar;
 
-import Gameplay.PlateauJeu;
-import Gameplay.Player;
+import GUI.Utils.Game;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -105,7 +103,7 @@ public class TerritoryInfo extends HBox {
         forcetext1.setFont(Font.font("Courier New",15));
         textFlow.getChildren().clear();
         textFlow.getChildren().addAll(colortext1,colortext,forcetext1,forcetext);
-        imageView2.setImage(new Image("Assets/Versus.png"));
+        imageView2.setImage(new Image("Assets/Blank.png"));
     }
 
     public boolean isBlanck() {

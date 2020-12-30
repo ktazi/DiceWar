@@ -1,5 +1,12 @@
 package GUI;
 
+import GUI.BattleBar.DuelPanel;
+import GUI.BattleBar.SelectionTerritoryPanel;
+import GUI.BattleBar.TerritoryInfo;
+import GUI.Utils.Game;
+import GUI.logs.BattlePanel;
+import GUI.logs.LogPanel;
+import GUI.logs.TurnPanel;
 import Gameplay.PlateauJeu;
 import Geometry.HexagonCase;
 import javafx.application.Application;

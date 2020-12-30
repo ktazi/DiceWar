@@ -1,4 +1,4 @@
-package GUI;
+package GUI.BattleBar;
 
 import Gameplay.PlateauJeu;
 import Gameplay.Territory;
@@ -31,7 +31,8 @@ public class SelectionTerritoryPanel extends HBox {
         ImageView imageView2 = new ImageView(new Image("Assets/Versus.png"));
         assault = new Button("Attack !");
         assault.setDisable(true);
-        assault.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
+        assault.getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
+        assault.setOnMouseClicked(event -> lancerAssault());
         AnchorPane panneau = new AnchorPane();
         panneau.getChildren().add(imageView2);
         panneau.getChildren().add(assault);
@@ -43,6 +44,12 @@ public class SelectionTerritoryPanel extends HBox {
 
     }
 
+    private void lancerAssault(){
+        infoTerritory1.setBlank();
+        infoTerritory2.setBlank();
+        assault.setDisable(true);
+    }
+
     public void setPlateauJeu(PlateauJeu plateauJeu) {
         this.plateauJeu = plateauJeu;
     }
@@ -50,12 +57,15 @@ public class SelectionTerritoryPanel extends HBox {
         if (territory.getPlayer().getIdPlayer()==plateauJeu.getCurrentPlayer().getIdPlayer()){
             infoTerritory1.updateInfo(territory.getForce(),territory.getPlayer().getColor());
             territory1Selected = territory;
+            infoTerritory2.setBlank();
         }
         else{
-            infoTerritory2.updateInfo(territory.getForce(),territory.getPlayer().getColor());
-            territory2Selected = territory;
+            if (!infoTerritory1.isBlanck() && territory1Selected.areAdj(territory)){
+                infoTerritory2.updateInfo(territory.getForce(),territory.getPlayer().getColor());
+                territory2Selected = territory;
+            }
         }
-        if (!infoTerritory1.isBlanck() && !infoTerritory2.isBlanck() && territory1Selected.areAdj(territory2Selected)){
+        if (!infoTerritory1.isBlanck() && !infoTerritory2.isBlanck() && territory1Selected.areAdj(territory2Selected)&&territory1Selected.getForce()!=1){
             assault.setDisable(false);
         }
         else{

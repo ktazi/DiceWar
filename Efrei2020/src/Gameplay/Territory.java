@@ -1,8 +1,7 @@
 package Gameplay;
 
-import GUI.Game;
-import GUI.SelectionTerritoryPanel;
-import GUI.TerritoryInfo;
+import GUI.Utils.Game;
+import GUI.BattleBar.SelectionTerritoryPanel;
 import Geometry.HexagonCase;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -12,7 +11,6 @@ import javafx.scene.paint.Color;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeSet;
 
 public class Territory {

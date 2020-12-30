@@ -1,5 +1,7 @@
-package GUI;
+package GUI.logs;
 
+import GUI.Utils.Game;
+import GUI.logs.Logs;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;

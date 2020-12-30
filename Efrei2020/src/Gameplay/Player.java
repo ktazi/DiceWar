@@ -1,6 +1,6 @@
 package Gameplay;
 
-import GUI.Game;
+import GUI.Utils.Game;
 
 import java.util.ArrayList;
 
