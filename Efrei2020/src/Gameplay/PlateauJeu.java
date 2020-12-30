@@ -92,7 +92,12 @@ public class PlateauJeu{
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-    public ArrayList<Territory> getTerritories() {
-        return territories;
+    public void changeTurn(){
+        //add 3 of force to player
+        getCurrentPlayer().addForce(3);
+        //remove a loser if there is one
+        players.removeIf(player -> player.getTerritories().size() == 0);
+        //choose new player
+        choosePlayer();
     }
 }

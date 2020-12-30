@@ -1,9 +1,6 @@
 package GUI.BattleBar;
 
-import GUI.logs.BattlePanel;
 import javafx.scene.layout.AnchorPane;
-
-import java.io.IOException;
 
 public class BattleBar extends AnchorPane {
     DuelPanel duelPanel;
@@ -13,7 +10,7 @@ public class BattleBar extends AnchorPane {
     public BattleBar() {
         super();
         selectionTerritoryPanel = new SelectionTerritoryPanel(this);
-        duelPanel = new DuelPanel();
+        duelPanel = new DuelPanel(selectionTerritoryPanel, this);
         getChildren().add(selectionTerritoryPanel);
         battle = false;
     }
@@ -21,6 +18,8 @@ public class BattleBar extends AnchorPane {
     public void switchMode(){
         getChildren().clear();
         getChildren().add(!battle?duelPanel:selectionTerritoryPanel);
+        duelPanel.update();
+        selectionTerritoryPanel.switchActive();
         battle = !battle;
     }
 

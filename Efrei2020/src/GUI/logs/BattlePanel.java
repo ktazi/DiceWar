@@ -65,4 +65,5 @@ public class BattlePanel extends AnchorPane implements Logs {
 
 
 
+
 }

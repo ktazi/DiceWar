@@ -14,13 +14,16 @@ public class SelectionTerritoryPanel extends HBox {
     public TerritoryInfo infoTerritory1;
     public TerritoryInfo infoTerritory2;
     public Button assault;
+    public Button pass;
     public PlateauJeu plateauJeu;
     private Territory territory1Selected;
     private Territory territory2Selected;
     private BattleBar parent;
+    private boolean active;
 
     public SelectionTerritoryPanel(BattleBar battleBar){
         super();
+        active = true;
         parent = battleBar;
         territory1Selected = null;
         territory2Selected = null;
@@ -31,49 +34,79 @@ public class SelectionTerritoryPanel extends HBox {
         getChildren().add(infoTerritory1);
         ImageView imageView2 = new ImageView(new Image("Assets/Versus.png"));
         assault = new Button("Attack !");
-        assault.setDisable(true);
+        pass = new Button("Pass");
         assault.getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
+        assault.setDisable(true);
+        pass.setId("pass");
+        pass.getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
         assault.setOnMouseClicked(event -> lancerAssault());
         AnchorPane panneau = new AnchorPane();
         panneau.getChildren().add(imageView2);
         panneau.getChildren().add(assault);
-        AnchorPane.setTopAnchor(assault, 75.);
+        AnchorPane.setTopAnchor(assault, 35.);
         AnchorPane.setLeftAnchor(assault, 60.);
+        panneau.getChildren().add(pass);
+        AnchorPane.setTopAnchor(pass, 135.);
+        AnchorPane.setLeftAnchor(pass, 70.);
         getChildren().add(panneau);
         getChildren().add(infoTerritory2);
+        pass.setOnMouseClicked(event -> endOfTurn());
         plateauJeu = null;
 
     }
-
     private void lancerAssault(){
         infoTerritory1.setBlank();
         infoTerritory2.setBlank();
         assault.setDisable(true);
+        parent.switchMode();
     }
+
+    Territory getTerritory1Selected(){
+        return territory1Selected;
+    }
+    Territory getTerritory2Selected(){
+        return territory2Selected;
+    }
+
 
     public void setPlateauJeu(PlateauJeu plateauJeu) {
         this.plateauJeu = plateauJeu;
     }
+
     public void updateInfo(Territory territory) throws FileNotFoundException {
-        if (territory.getPlayer().getIdPlayer()==plateauJeu.getCurrentPlayer().getIdPlayer()){
-            infoTerritory1.updateInfo(territory.getForce(),territory.getPlayer().getColor());
-            territory1Selected = territory;
-            infoTerritory2.setBlank();
-        }
-        else{
-            if (!infoTerritory1.isBlanck() && territory1Selected.areAdj(territory)){
-                infoTerritory2.updateInfo(territory.getForce(),territory.getPlayer().getColor());
-                territory2Selected = territory;
+        if (active){
+            if (territory.getPlayer().getIdPlayer()==plateauJeu.getCurrentPlayer().getIdPlayer()){
+                infoTerritory1.updateInfo(territory.getForce(),territory.getPlayer().getColor());
+                territory1Selected = territory;
+                infoTerritory2.setBlank();
             }
-        }
-        if (!infoTerritory1.isBlanck() && !infoTerritory2.isBlanck() && territory1Selected.areAdj(territory2Selected)&&territory1Selected.getForce()!=1){
-            assault.setDisable(false);
-        }
-        else{
-            assault.setDisable(true);
+            else{
+                if (!infoTerritory1.isBlanck() && territory1Selected.areAdj(territory)){
+                    infoTerritory2.updateInfo(territory.getForce(),territory.getPlayer().getColor());
+                    territory2Selected = territory;
+                }
+            }
+            if (!infoTerritory1.isBlanck() && !infoTerritory2.isBlanck() && territory1Selected.areAdj(territory2Selected)&&territory1Selected.getForce()!=1){
+                assault.setDisable(false);
+            }
+            else{
+                assault.setDisable(true);
+            }
         }
     }
 
+    public void endOfTurn(){
+        infoTerritory1.setBlank();
+        infoTerritory2.setBlank();
+        territory1Selected = null;
+        territory2Selected = null;
+        plateauJeu.changeTurn();
+    }
+
+
+    public void switchActive(){
+        active = !active;
+    }
 
 
 }

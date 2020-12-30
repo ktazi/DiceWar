@@ -55,8 +55,6 @@ public class Player {
         return true;
     }
     public void addForce(int force){
-        System.out.println(force);
-
         while (!maxedForce() && force>0){
             int te;
             do{
@@ -69,4 +67,19 @@ public class Player {
     public int getIdPlayer() {
         return idPlayer;
     }
+
+    public void losingABattle(Territory territory){
+        territory.setForce(1);
+    }
+    public void winningABattle(Territory newTerritory, Territory previousTerritory){
+        newTerritory.getPlayer().getTerritories().remove(newTerritory);
+        newTerritory.setPlayer(this);
+        newTerritory.setForce(previousTerritory.getForce()-1);
+        territories.add(newTerritory);
+        previousTerritory.setForce(1);
+    }
+
+
+
+
 }
