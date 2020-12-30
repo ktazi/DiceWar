@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.BattleBar.BattleBar;
 import GUI.BattleBar.DuelPanel;
 import GUI.BattleBar.SelectionTerritoryPanel;
 import GUI.BattleBar.TerritoryInfo;
@@ -39,9 +40,10 @@ public class Main extends Application {
         canvas.getGraphicsContext2D().setFill(Color.rgb(5,20,3));
         canvas.getGraphicsContext2D().fillRect(0,0,3000,3000);
         AnchorPane spritePane = new AnchorPane();
-        TerritoryInfo territoryInfo = new TerritoryInfo();
-        SelectionTerritoryPanel selectionTerritoryPanel = new SelectionTerritoryPanel();
-        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), selectionTerritoryPanel, 6, spritePane);
+
+        BattleBar battleBar = new BattleBar();
+
+        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), battleBar, 6, spritePane);
         ArrayList<ArrayList<HexagonCase>> tiles = plateauJeu.getTiles();
         root.getChildren().add(canvas);
         root.getChildren().add(spritePane);
@@ -65,10 +67,7 @@ public class Main extends Application {
         logPanel.addPanel(new BattlePanel(Game.COLOR.YELLOW, Game.COLOR.MAGENTA,23,8,true));
         logPanel.addPanel(new TurnPanel(Game.COLOR.CYAN));
         AnchorPane bottom = new AnchorPane();
-        bottom.getChildren().add(selectionTerritoryPanel);
-        DuelPanel duelPanel = new DuelPanel();
-        //bottom.getChildren().add(duelPanel);
-        //AnchorPane.setLeftAnchor(duelPanel,600.);
+        bottom.getChildren().add(battleBar);
         mainPane.setBottom(bottom);
         mainPane.setRight(logPanel);
         mainPane.setPadding(new Insets(0));

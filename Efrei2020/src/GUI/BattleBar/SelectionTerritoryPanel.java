@@ -17,10 +17,11 @@ public class SelectionTerritoryPanel extends HBox {
     public PlateauJeu plateauJeu;
     private Territory territory1Selected;
     private Territory territory2Selected;
+    private BattleBar parent;
 
-
-    public SelectionTerritoryPanel(){
+    public SelectionTerritoryPanel(BattleBar battleBar){
         super();
+        parent = battleBar;
         territory1Selected = null;
         territory2Selected = null;
         ImageView imageView = new ImageView(new Image("Assets/Territory.png"));

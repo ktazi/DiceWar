@@ -1,5 +1,6 @@
 package Gameplay;
 
+import GUI.BattleBar.BattleBar;
 import GUI.BattleBar.SelectionTerritoryPanel;
 import Geometry.HexagonCase;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,7 +15,7 @@ public class PlateauJeu{
     private Player currentPlayer;
     public static final int NB_HEXAGONS= 25;
 
-    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, SelectionTerritoryPanel selectionTerritoryPanel, int nbPlayer, AnchorPane spritePane){
+    public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, BattleBar battleBar, int nbPlayer, AnchorPane spritePane){
         double x0 = 64;
         double y0 = 64;
         //creation of the hexagon tiles
@@ -67,7 +68,7 @@ public class PlateauJeu{
         //storing all territories in an array
         territories = new ArrayList<>();
         for (int i = 0; i < racines.size(); i++){
-            territories.add(new Territory(racines.get(i), graphicsContext, selectionTerritoryPanel,i, spritePane));
+            territories.add(new Territory(racines.get(i), graphicsContext, battleBar.getSelectionTerritoryPanel(),i, spritePane));
             for (HexagonCase tile : racines.get(i)){
                 tile.setTerritory(territories.get(i));
             }
@@ -80,12 +81,11 @@ public class PlateauJeu{
         players = Player.createPlayers(nbPlayer, territories);
         //choosing the first that plays
         choosePlayer();
-        selectionTerritoryPanel.setPlateauJeu(this);
+        battleBar.getSelectionTerritoryPanel().setPlateauJeu(this);
     }
     public ArrayList<ArrayList<HexagonCase>> getTiles() {
         return tiles;
     }
-
     private void choosePlayer(){
         currentPlayer = players.get((int)(Math.random()*players.size()));
     }
