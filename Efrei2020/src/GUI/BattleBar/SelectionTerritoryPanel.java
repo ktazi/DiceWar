@@ -1,5 +1,6 @@
 package GUI.BattleBar;
 
+import GUI.logs.TurnPanel;
 import Gameplay.PlateauJeu;
 import Gameplay.Territory;
 import javafx.scene.control.Button;
@@ -100,7 +101,11 @@ public class SelectionTerritoryPanel extends HBox {
         infoTerritory2.setBlank();
         territory1Selected = null;
         territory2Selected = null;
-        plateauJeu.changeTurn();
+        try {
+            parent.logPanel.addPanel(new TurnPanel(plateauJeu.changeTurn()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

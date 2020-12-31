@@ -2,10 +2,13 @@ package Gameplay;
 
 import GUI.BattleBar.BattleBar;
 import GUI.BattleBar.SelectionTerritoryPanel;
+import GUI.Utils.Game;
+import GUI.logs.TurnPanel;
 import Geometry.HexagonCase;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class PlateauJeu{
@@ -81,6 +84,11 @@ public class PlateauJeu{
         players = Player.createPlayers(nbPlayer, territories);
         //choosing the first that plays
         choosePlayer();
+        try {
+            battleBar.getLogPanel().addPanel(new TurnPanel(getCurrentPlayer().getColor()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         battleBar.getSelectionTerritoryPanel().setPlateauJeu(this);
     }
     public ArrayList<ArrayList<HexagonCase>> getTiles() {
@@ -92,12 +100,14 @@ public class PlateauJeu{
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-    public void changeTurn(){
+    public Game.COLOR changeTurn(){
         //add 3 of force to player
+
         getCurrentPlayer().addForce(3);
         //remove a loser if there is one
         players.removeIf(player -> player.getTerritories().size() == 0);
         //choose new player
         choosePlayer();
+        return getCurrentPlayer().getColor();
     }
 }

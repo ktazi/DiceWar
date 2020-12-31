@@ -1,8 +1,8 @@
 package GUI.BattleBar;
 
 import GUI.Utils.Game;
+import GUI.logs.BattlePanel;
 import Gameplay.Dices;
-import Gameplay.Territory;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -25,6 +25,8 @@ public class DuelPanel extends AnchorPane {
     int scoreJ2;
     Text teamJ1;
     Text teamJ2;
+    Text score1;
+    Text score2;
 
     public DuelPanel(SelectionTerritoryPanel selectionTerritoryPanel, BattleBar battleBar) {
         super();
@@ -59,8 +61,16 @@ public class DuelPanel extends AnchorPane {
         getChildren().add(teamJ2);
         AnchorPane.setTopAnchor(teamJ2, 150.);
         AnchorPane.setLeftAnchor(teamJ2, 820.);
-
-
+        score1 = new Text("0");
+        score1.setFill(Color.WHITE);
+        score2 = new Text("0");
+        score2.setFill(Color.WHITE);
+        getChildren().add(score1);
+        getChildren().add(score2);
+        AnchorPane.setTopAnchor(score1, 90.);
+        AnchorPane.setLeftAnchor(score1, 460.);
+        AnchorPane.setTopAnchor(score2, 90.);
+        AnchorPane.setLeftAnchor(score2, 700.);
         dices = new ArrayList<>();
         for (int h = 0; h < 2; h++) {
             for (int i = 0; i < 2; i++) {
@@ -88,6 +98,8 @@ public class DuelPanel extends AnchorPane {
         teamJ1.setFill(Game.colorRgb(this.selectionTerritoryPanel.getTerritory1Selected().getPlayer().getColor()));
         teamJ2.setText(Game.colorToString(this.selectionTerritoryPanel.getTerritory2Selected().getPlayer().getColor()));
         teamJ2.setFill(Game.colorRgb(this.selectionTerritoryPanel.getTerritory2Selected().getPlayer().getColor()));
+        score1.setText("0");
+        score2.setText("0");
         spriteJ1.setImage(new Image("Assets/"+
                 Game.forceToString(selectionTerritoryPanel.getTerritory1Selected().getForce()) +
                 "_"+
@@ -101,7 +113,6 @@ public class DuelPanel extends AnchorPane {
     public void duel(){
         scoreJ1 = 0;
         scoreJ2 = 0;
-
         for (int h = 0; h<2;h++){
             for (int i = 0; i < 2; i++){
                 for (int j = 0; j< 4; j++){
@@ -120,6 +131,17 @@ public class DuelPanel extends AnchorPane {
                     scoreJ2 += diceJ2.get(j);
             }
         }
+        parent.logPanel.addPanel(new BattlePanel(
+                selectionTerritoryPanel.getTerritory1Selected().getPlayer().getColor(),
+                selectionTerritoryPanel.getTerritory2Selected().getPlayer().getColor(),
+                scoreJ1,
+                scoreJ2,
+                scoreJ1>scoreJ2
+        ));
+
+
+        score1.setText(Integer.toString(scoreJ1));
+        score2.setText(Integer.toString(scoreJ2));
         getChildren().remove(battle);
         getChildren().add(attackAgain);
         AnchorPane.setTopAnchor(attackAgain, 70.);

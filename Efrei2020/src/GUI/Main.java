@@ -40,9 +40,8 @@ public class Main extends Application {
         canvas.getGraphicsContext2D().setFill(Color.rgb(5,20,3));
         canvas.getGraphicsContext2D().fillRect(0,0,3000,3000);
         AnchorPane spritePane = new AnchorPane();
-
-        BattleBar battleBar = new BattleBar();
-
+        LogPanel logPanel = new LogPanel();
+        BattleBar battleBar = new BattleBar(logPanel);
         PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), battleBar, 6, spritePane);
         ArrayList<ArrayList<HexagonCase>> tiles = plateauJeu.getTiles();
         root.getChildren().add(canvas);
@@ -60,12 +59,7 @@ public class Main extends Application {
         AnchorPane.setTopAnchor(label,40.);
         AnchorPane.setLeftAnchor(label,40.);
         mainPane.setCenter(anchorPane);
-        LogPanel logPanel = new LogPanel();
-        logPanel.addPanel(new TurnPanel(Game.COLOR.GREEN));
-        logPanel.addPanel(new BattlePanel(Game.COLOR.GREEN, Game.COLOR.CYAN, 100,133,false));
-        logPanel.addPanel(new TurnPanel(Game.COLOR.YELLOW));
-        logPanel.addPanel(new BattlePanel(Game.COLOR.YELLOW, Game.COLOR.MAGENTA,23,8,true));
-        logPanel.addPanel(new TurnPanel(Game.COLOR.CYAN));
+
         AnchorPane bottom = new AnchorPane();
         bottom.getChildren().add(battleBar);
         mainPane.setBottom(bottom);
