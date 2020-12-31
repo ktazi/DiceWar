@@ -37,7 +37,7 @@ public class LogPanel extends VBox  {
     }
 
     public void addPanel(Logs log){
-        vBox.getChildren().add((Node)log);
+        vBox.getChildren().add(0,((Node)log));
     }
 
 

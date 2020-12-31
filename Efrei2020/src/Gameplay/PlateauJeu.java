@@ -3,6 +3,7 @@ package Gameplay;
 import GUI.BattleBar.BattleBar;
 import GUI.BattleBar.SelectionTerritoryPanel;
 import GUI.Utils.Game;
+import GUI.logs.MessagePanel;
 import GUI.logs.TurnPanel;
 import Geometry.HexagonCase;
 import javafx.scene.canvas.GraphicsContext;
@@ -84,6 +85,7 @@ public class PlateauJeu{
         players = Player.createPlayers(nbPlayer, territories);
         //choosing the first that plays
         choosePlayer();
+        battleBar.getLogPanel().addPanel(new MessagePanel("Welcome to DiceWars !\nThis game was developed \nin 2020 for\nan academic project."));
         try {
             battleBar.getLogPanel().addPanel(new TurnPanel(getCurrentPlayer().getColor()));
         } catch (FileNotFoundException e) {
