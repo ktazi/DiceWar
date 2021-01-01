@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CancellationException;
 
 public class GamePanel extends AnchorPane {
-    public GamePanel(){
+    public GamePanel(int nbJoueurs){
         super();
         BorderPane mainPane = new BorderPane();
         AnchorPane anchorPane = new AnchorPane();
@@ -39,7 +39,7 @@ public class GamePanel extends AnchorPane {
             e.printStackTrace();
         }
         BattleBar battleBar = new BattleBar(logPanel);
-        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), battleBar, 6, spritePane);
+        PlateauJeu plateauJeu = new PlateauJeu( 24,canvas.getGraphicsContext2D(), battleBar, nbJoueurs, spritePane);
         ArrayList<ArrayList<HexagonCase>> tiles = plateauJeu.getTiles();
         root.getChildren().add(canvas);
         root.getChildren().add(spritePane);
