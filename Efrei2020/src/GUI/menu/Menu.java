@@ -62,13 +62,13 @@ public class Menu extends AnchorPane {
         }
     }
 
-    public boolean estUnEntier(String chaine) {
+    public boolean estUnEntierValide(String chaine) {
         try {
             Integer.parseInt(chaine);
         } catch (NumberFormatException e){
             return false;
         }
-        return true;
+        return Integer.parseInt(chaine)<=6 && Integer.parseInt(chaine)>=2;
     }
 
     public void lancerJeu() throws Exception {
@@ -109,7 +109,7 @@ public class Menu extends AnchorPane {
         choixJ.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue.equals("") || !estUnEntier(newValue)){
+                if(newValue.equals("") || !estUnEntierValide(newValue)){
                     b1.setDisable(true);
                 }
                 else{
@@ -157,7 +157,7 @@ public class Menu extends AnchorPane {
         AnchorPane.setLeftAnchor(choixJ,575.);
         AnchorPane.setTopAnchor(choixJ,320.);
 
-        getStylesheets().add(this.getClass().getResource("../MenuStyle.css").toExternalForm());
+        getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
 
 
     }
