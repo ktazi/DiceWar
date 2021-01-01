@@ -157,7 +157,7 @@ public class Menu extends AnchorPane {
         AnchorPane.setLeftAnchor(choixJ,575.);
         AnchorPane.setTopAnchor(choixJ,320.);
 
-        getStylesheets().add(this.getClass().getResource("../MenuStyle.css").toExternalForm());
+        getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
 
 
     }
