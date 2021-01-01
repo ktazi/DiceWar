@@ -1,7 +1,5 @@
 package GUI.menu;
 
-
-import GUI.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -20,13 +18,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-
-public class Menu extends AnchorPane {
+public class CreationPartie extends AnchorPane {
 
     public ImageView fondMap;
+    public TextField choixJ;
+    public int nbPlayer;
     int x,y = -1;
 
 
@@ -60,17 +56,34 @@ public class Menu extends AnchorPane {
         }
     }
 
-    public void chargerPartie(){
-
+    public boolean estUnEntierValide(String chaine) {
+        try {
+            Integer.parseInt(chaine);
+        } catch (NumberFormatException e){
+            return false;
+        }
+        return Integer.parseInt(chaine)<=6 && Integer.parseInt(chaine)>=2;
     }
 
-    public void nouvellePartie() {
-        CreationPartie nouvellepartie = new CreationPartie();
+    public void lancerJeu() {
+        System.out.println("le jeu se lance");
+        nbPlayer = Integer.parseInt( (choixJ.getCharacters()).toString());
+        System.out.println(nbPlayer);
+        /*
+        Main main = new Main();
+        Stage primaryStage = new Stage();
+        main.start(primaryStage,5);
+
+         */
+    }
+
+    public void Retour() throws InterruptedException {
+        Menu menu = new Menu();
 
         Stage newStage  = new Stage();
         newStage.setTitle("Dice War");
 
-        newStage.setScene(new Scene(nouvellepartie, 1200, 700));
+        newStage.setScene(new Scene(menu, 1200, 700));
         newStage.setResizable(false);
         newStage.show();
 
@@ -78,23 +91,45 @@ public class Menu extends AnchorPane {
         actuelStage.close();
     }
 
-
-    public Menu()throws InterruptedException{
+    public CreationPartie(){
         super();
 
         //Fond
         fondMap = new ImageView(new Image("Assets/DiceWarsMap.png"));
 
-
+        //selection du nombre de joueurs
+        choixJ = new TextField();
+        choixJ.setFont(Font.font(23));
+        choixJ.setMaxWidth(50.);
 
         //Button lancement du jeu
-        Button nouvellepartieBut = new Button("Nouvelle partie");
-        Button chargerpartieBut = new Button("Charger une partie");
+        Button lancerjeuBut = new Button("Lancez le jeu");
+        lancerjeuBut.setOnMouseClicked(event -> lancerJeu());
 
-        nouvellepartieBut.setOnMouseClicked(event -> nouvellePartie());
-        chargerpartieBut.setOnMouseClicked(event -> chargerPartie());
+        lancerjeuBut.setDisable(true);
 
-        //mouvement du fond
+        choixJ.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue.equals("") || !estUnEntierValide(newValue)){
+                    lancerjeuBut.setDisable(true);
+                }
+                else{
+                    lancerjeuBut.setDisable(false);
+                }
+            }
+        });
+
+        //Button : retour menu
+        Button retourBut = new Button("Retour");
+        retourBut.setOnMouseClicked(event -> {
+            try {
+                Retour();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
         Timeline fiveSecondsWonder = new Timeline(
                 new KeyFrame(Duration.seconds(0.04),
                         new EventHandler<ActionEvent>() {
@@ -112,30 +147,32 @@ public class Menu extends AnchorPane {
 
 
 
-        Text text = new Text("Bienvenue dans Dice Wars");
+
+        Text text = new Text("Saisir le nombre de joueur");
         text.setFill(Color.GREEN);
         text.setFont(Font.font(23));
 
 
         //Ajout des éléments dans l'Anchor
         getChildren().add(fondMap);
-        getChildren().add(nouvellepartieBut);
-        getChildren().add(chargerpartieBut);
+        getChildren().add(lancerjeuBut);
         getChildren().add(text);
-
-        nouvellepartieBut.setMinWidth(150.);
-        chargerpartieBut.setMinWidth(150.);
+        getChildren().add(choixJ);
+        getChildren().add(retourBut);
 
         //Positionnement
-        AnchorPane.setLeftAnchor(nouvellepartieBut,530.);
-        AnchorPane.setTopAnchor(nouvellepartieBut,270.);
-        AnchorPane.setLeftAnchor(chargerpartieBut,530.);
-        AnchorPane.setTopAnchor(chargerpartieBut,380.);
-        AnchorPane.setLeftAnchor(text,470.);
-        AnchorPane.setTopAnchor(text,100.);
+        AnchorPane.setLeftAnchor(lancerjeuBut,545.);
+        AnchorPane.setTopAnchor(lancerjeuBut,390.);
+        AnchorPane.setLeftAnchor(text,460.);
+        AnchorPane.setTopAnchor(text,270.);
+        AnchorPane.setLeftAnchor(choixJ,575.);
+        AnchorPane.setTopAnchor(choixJ,320.);
+        AnchorPane.setLeftAnchor(retourBut,10.);
+        AnchorPane.setTopAnchor(retourBut,10.);
+
+
         getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
 
 
     }
-
 }
