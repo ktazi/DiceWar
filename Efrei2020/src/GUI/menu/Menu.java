@@ -38,7 +38,7 @@ public class Menu extends AnchorPane {
             x  =  -1;
         }
         //Stoppper droite
-        if(fondMap.getX() == -1542){
+        if(fondMap.getX() == -1541){
             x  =  1;
         }
         //Stoppper haut
@@ -54,8 +54,8 @@ public class Menu extends AnchorPane {
         fondMap.setY(fondMap.getY()+y);
 
         //Dépassement
-        if(fondMap.getX() <= -1542){
-            fondMap.setX(-1542);
+        if(fondMap.getX() <= -1541){
+            fondMap.setX(-1541);
         }
         if(fondMap.getY() <= -1662){
             fondMap.setY(-1662);
@@ -135,6 +135,8 @@ public class Menu extends AnchorPane {
                         }));
         fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
         fiveSecondsWonder.play();
+
+
 
 
 

@@ -16,13 +16,9 @@ public class testMenu extends Application {
 
         Menu mainPane = new Menu();
 
-        //Canvas
-        //ImageView
-        //Text
-        //HBox, VBox ==> allignement des éléments
-        //ScrollPanel
 
         primaryStage.setScene(new Scene(mainPane, 1200, 700));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
