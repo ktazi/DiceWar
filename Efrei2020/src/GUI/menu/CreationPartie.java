@@ -1,5 +1,6 @@
 package GUI.menu;
 
+import GUI.GamePanel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -66,15 +67,20 @@ public class CreationPartie extends AnchorPane {
     }
 
     public void lancerJeu() {
-        System.out.println("le jeu se lance");
-        nbPlayer = Integer.parseInt( (choixJ.getCharacters()).toString());
-        System.out.println(nbPlayer);
-        /*
-        Main main = new Main();
-        Stage primaryStage = new Stage();
-        main.start(primaryStage,5);
 
-         */
+        nbPlayer = Integer.parseInt( (choixJ.getCharacters()).toString());
+        GamePanel mainPane = new GamePanel(nbPlayer);
+
+        Stage newStage = new Stage();
+        newStage.setTitle("Dice War");
+
+
+        newStage.setScene(new Scene(mainPane, 1200, 700));
+        newStage.setResizable(false);
+        newStage.show();
+
+        Stage actuelStage = (Stage) this.getScene().getWindow();
+        actuelStage.close();
     }
 
     public void Retour() throws InterruptedException {
