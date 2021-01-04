@@ -71,6 +71,7 @@ public class CreationPartie extends AnchorPane {
         nbPlayer = Integer.parseInt( (choixJ.getCharacters()).toString());
         GamePanel mainPane = new GamePanel(nbPlayer);
 
+
         Stage newStage = new Stage();
         newStage.setTitle("Dice War");
 
