@@ -33,7 +33,7 @@ public class CreationPartie extends AnchorPane {
             x  =  -1;
         }
         //Stoppper droite
-        if(fondMap.getX() == -1541){
+        if(fondMap.getX() == -1534){
             x  =  1;
         }
         //Stoppper haut
@@ -41,7 +41,7 @@ public class CreationPartie extends AnchorPane {
             y  =  -1;
         }
         //Stoppper bas
-        if(fondMap.getY() == -1662){
+        if(fondMap.getY() == -1650){
             y  =  1;
         }
 
