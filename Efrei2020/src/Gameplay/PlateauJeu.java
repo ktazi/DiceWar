@@ -1,7 +1,6 @@
 package Gameplay;
 
 import GUI.BattleBar.BattleBar;
-import GUI.BattleBar.SelectionTerritoryPanel;
 import GUI.Utils.Game;
 import GUI.logs.MessagePanel;
 import GUI.logs.TurnPanel;
@@ -9,16 +8,17 @@ import Geometry.HexagonCase;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
-public class PlateauJeu{
+public class PlateauJeu  implements Serializable {
     private ArrayList<ArrayList<HexagonCase>> tiles;
     private ArrayList<Territory> territories;
     private ArrayList<Player> players;
     private Player currentPlayer;
-    public static final int NB_HEXAGONS= 25;
+    public final static int NB_HEXAGONS= 25;
 
+    //constructor for new game
     public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, BattleBar battleBar, int nbPlayer, AnchorPane spritePane){
         double x0 = 64;
         double y0 = 64;
@@ -72,7 +72,7 @@ public class PlateauJeu{
         //storing all territories in an array
         territories = new ArrayList<>();
         for (int i = 0; i < racines.size(); i++){
-            territories.add(new Territory(racines.get(i), graphicsContext, battleBar.getSelectionTerritoryPanel(),i, spritePane));
+            territories.add(new Territory(racines.get(i), battleBar.getSelectionTerritoryPanel(),i, spritePane));
             for (HexagonCase tile : racines.get(i)){
                 tile.setTerritory(territories.get(i));
             }
@@ -83,6 +83,9 @@ public class PlateauJeu{
         }
         //creation of players
         players = Player.createPlayers(nbPlayer, territories);
+        for (Player player : players){
+            System.out.println(player.getColor());
+        }
         //choosing the first that plays
         choosePlayer();
         battleBar.getLogPanel().addPanel(new MessagePanel("Welcome to DiceWars !\nThis game was developed \nin 2020 for\nan academic project."));
@@ -111,5 +114,16 @@ public class PlateauJeu{
         //choose new player
         choosePlayer();
         return getCurrentPlayer().getColor();
+    }
+
+    public void serializePlateau(File file) throws IOException {
+        ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file)) ;
+        outputStream.writeObject(this) ;
+    }
+
+    public static PlateauJeu deserialize(String path) throws IOException, ClassNotFoundException {
+        File fichier =  new File(path) ;
+        ObjectInputStream objectInputStream =  new ObjectInputStream(new FileInputStream(fichier)) ;
+        return (PlateauJeu)objectInputStream.readObject();
     }
 }

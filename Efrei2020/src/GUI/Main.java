@@ -29,7 +29,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Dice War");
-        GamePanel mainPane = new GamePanel(4);
+        GamePanel mainPane = new GamePanel(5);
         primaryStage.setScene(new Scene(mainPane, 1200, 700));
         primaryStage.show();
     }

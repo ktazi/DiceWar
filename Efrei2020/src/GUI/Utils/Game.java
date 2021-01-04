@@ -31,6 +31,9 @@ public class Game {
                 return RED;
             return GREEN;
         }
+        public int getValue(){
+            return value;
+        }
     }
 
     public static Image getBanner(Game.COLOR color) throws FileNotFoundException {

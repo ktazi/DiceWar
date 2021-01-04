@@ -3,7 +3,7 @@ package GUI.BattleBar;
 import GUI.logs.LogPanel;
 import javafx.scene.layout.AnchorPane;
 
-public class BattleBar extends AnchorPane {
+public class BattleBar extends AnchorPane  {
     DuelPanel duelPanel;
     SelectionTerritoryPanel selectionTerritoryPanel;
     boolean battle;

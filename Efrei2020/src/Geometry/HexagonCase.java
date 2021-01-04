@@ -1,19 +1,19 @@
 package Geometry;
 
 import Gameplay.Territory;
+import Serialization.HexagonCaseClones;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 
-public class HexagonCase {
+public class HexagonCase implements Serializable {
     public static final int SIZE = 40;
     private double[][] polygon;
     private double centerX;
     private double centerY;
     private Polygon shape;
-    private static int ID;
-    private int selfId;
     private int cubeCoorX;
     private int cubeCoorY;
     private int cubeCoorZ;
@@ -30,8 +30,6 @@ public class HexagonCase {
         centerX = x1;
         centerY = y1;
         territoryId = -1;
-        selfId = ID;
-        ID++;
         polygon = new double[2][6];
         polygon[0][0]=x1 + ((SIZE*Math.sqrt(3))/2);
         polygon[1][0]=y1 + (SIZE/(double)2);
@@ -101,6 +99,9 @@ public class HexagonCase {
 
     public int getOffsety(){
         return offsety;
+    }
+    public HexagonCaseClones prepareSerialisation(){
+        return new HexagonCaseClones(this.getCenterX(),this.getCenterY(), this.getOffsetx(), this.getOffsety());
     }
 
 }

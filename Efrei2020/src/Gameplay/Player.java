@@ -1,7 +1,9 @@
 package Gameplay;
 
 import GUI.Utils.Game;
+import Serialization.PlayerClone;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Player {
@@ -68,6 +70,7 @@ public class Player {
         return idPlayer;
     }
 
+
     public void losingABattle(Territory territory){
         territory.setForce(1);
     }
@@ -79,7 +82,9 @@ public class Player {
         previousTerritory.setForce(1);
     }
 
-
+    public PlayerClone prepareSerialization(){
+        return new PlayerClone(color, territories, idPlayer);
+    }
 
 
 }
