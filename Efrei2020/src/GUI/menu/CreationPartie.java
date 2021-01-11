@@ -7,6 +7,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -16,11 +18,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class CreationPartie extends AnchorPane {
 
+    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    public double width =  screenBounds.getWidth();
+    public double height =  screenBounds.getHeight();
     public ImageView fondMap;
     public TextField choixJ;
     public int nbPlayer;
@@ -33,7 +39,7 @@ public class CreationPartie extends AnchorPane {
             x  =  -1;
         }
         //Stoppper droite
-        if(fondMap.getX() == -1534){
+        if(fondMap.getX() == -(2734-width)){
             x  =  1;
         }
         //Stoppper haut
@@ -41,7 +47,7 @@ public class CreationPartie extends AnchorPane {
             y  =  -1;
         }
         //Stoppper bas
-        if(fondMap.getY() == -1650){
+        if(fondMap.getY() == -(2350-height)){
             y  =  1;
         }
 
@@ -49,11 +55,11 @@ public class CreationPartie extends AnchorPane {
         fondMap.setY(fondMap.getY()+y);
 
         //Dépassement
-        if(fondMap.getX() <= -1541){
-            fondMap.setX(-1541);
+        if(fondMap.getX() <= -(2734-width)){
+            fondMap.setX(-(2734-width));
         }
-        if(fondMap.getY() <= -1662){
-            fondMap.setY(-1662);
+        if(fondMap.getY() <= -(2350-height)){
+            fondMap.setY(-(2350-height));
         }
     }
 
@@ -76,7 +82,7 @@ public class CreationPartie extends AnchorPane {
         newStage.setTitle("Dice War");
 
 
-        newStage.setScene(new Scene(mainPane, 1200, 700));
+        newStage.setScene(new Scene(mainPane, width-10, height));
         newStage.setResizable(false);
         newStage.show();
 
@@ -90,7 +96,7 @@ public class CreationPartie extends AnchorPane {
         Stage newStage  = new Stage();
         newStage.setTitle("Dice War");
 
-        newStage.setScene(new Scene(menu, 1200, 700));
+        newStage.setScene(new Scene(menu, width-10, height));
         newStage.setResizable(false);
         newStage.show();
 
@@ -153,8 +159,6 @@ public class CreationPartie extends AnchorPane {
 
 
 
-
-
         Text text = new Text("Saisir le nombre de joueur");
         text.setFill(Color.GREEN);
         text.setFont(Font.font(23));
@@ -167,13 +171,16 @@ public class CreationPartie extends AnchorPane {
         getChildren().add(choixJ);
         getChildren().add(retourBut);
 
+        lancerjeuBut.setMinWidth(130.);
+        choixJ.setMinWidth(80.);
+
         //Positionnement
-        AnchorPane.setLeftAnchor(lancerjeuBut,545.);
-        AnchorPane.setTopAnchor(lancerjeuBut,390.);
-        AnchorPane.setLeftAnchor(text,460.);
-        AnchorPane.setTopAnchor(text,270.);
-        AnchorPane.setLeftAnchor(choixJ,575.);
-        AnchorPane.setTopAnchor(choixJ,320.);
+        AnchorPane.setLeftAnchor(lancerjeuBut,(width*0.5)-65);
+        AnchorPane.setTopAnchor(lancerjeuBut,(height*0.6));
+        AnchorPane.setLeftAnchor(text,(width*0.5)-(text.getLayoutBounds().getWidth()/2));
+        AnchorPane.setTopAnchor(text,(height*0.4)-(text.getLayoutBounds().getHeight()/2));
+        AnchorPane.setLeftAnchor(choixJ,(width*0.5)-40);
+        AnchorPane.setTopAnchor(choixJ,(height*0.5));
         AnchorPane.setLeftAnchor(retourBut,10.);
         AnchorPane.setTopAnchor(retourBut,10.);
 

@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 
 public class HexagonCase implements Serializable {
-    public static final int SIZE = 40;
+    public static final int SIZE = 30;
     private double[][] polygon;
     private double centerX;
     private double centerY;

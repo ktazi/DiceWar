@@ -3,14 +3,21 @@ package GUI.BattleBar;
 import GUI.logs.TurnPanel;
 import Gameplay.PlateauJeu;
 import Gameplay.Territory;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
+
 import java.io.FileNotFoundException;
 
 public class SelectionTerritoryPanel extends HBox {
+
+    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    public double width =  screenBounds.getWidth();
+    public double height =  screenBounds.getHeight();
 
     public TerritoryInfo infoTerritory1;
     public TerritoryInfo infoTerritory2;
@@ -30,10 +37,14 @@ public class SelectionTerritoryPanel extends HBox {
         territory2Selected = null;
         ImageView imageView = new ImageView(new Image("Assets/Territory.png"));
         getChildren().add(imageView);
+        imageView.setFitHeight((2*height)/7);
+        imageView.setFitWidth(width/6);
         infoTerritory1 = new TerritoryInfo();
         infoTerritory2 = new TerritoryInfo();
         getChildren().add(infoTerritory1);
         ImageView imageView2 = new ImageView(new Image("Assets/Versus.png"));
+        imageView2.setFitHeight((2*height)/7);
+        imageView2.setFitWidth(width/6);
         assault = new Button("Attack !");
         pass = new Button("Pass");
         assault.getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
@@ -44,11 +55,11 @@ public class SelectionTerritoryPanel extends HBox {
         AnchorPane panneau = new AnchorPane();
         panneau.getChildren().add(imageView2);
         panneau.getChildren().add(assault);
-        AnchorPane.setTopAnchor(assault, 35.);
-        AnchorPane.setLeftAnchor(assault, 60.);
+        AnchorPane.setTopAnchor(assault, (0.4*height)/7);
+        AnchorPane.setLeftAnchor(assault, (0.7*width)/12);
         panneau.getChildren().add(pass);
-        AnchorPane.setTopAnchor(pass, 135.);
-        AnchorPane.setLeftAnchor(pass, 70.);
+        AnchorPane.setTopAnchor(pass, (1.4*height)/7);
+        AnchorPane.setLeftAnchor(pass, (0.8*width)/12);
         getChildren().add(panneau);
         getChildren().add(infoTerritory2);
         pass.setOnMouseClicked(event -> endOfTurn());

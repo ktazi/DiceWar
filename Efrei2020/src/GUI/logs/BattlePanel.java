@@ -1,24 +1,31 @@
 package GUI.logs;
 
 import GUI.Utils.Game;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Screen;
 
 public class BattlePanel extends AnchorPane implements Logs {
+
+    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    public double width =  screenBounds.getWidth();
+    public double height =  screenBounds.getHeight();
 
     public BattlePanel(Game.COLOR player1, Game.COLOR player2, int points1, int points2, boolean victory){
         super();
         Canvas canvas = new Canvas();
-        canvas.setHeight(250);
-        canvas.setWidth(185);
+        canvas.setHeight((2.5*height)/7);
+        canvas.setWidth((1.9*width)/12);
         canvas.getGraphicsContext2D().setFill(Color.BLACK);
-        canvas.getGraphicsContext2D().fillRect(0,0,185,250);
+        canvas.getGraphicsContext2D().fillRect(0,0,(1.9*width)/12,(2.5*height)/7);
         TextFlow textFlow = new TextFlow();
         Text text = new Text(Game.colorToString(player1));
         text.setFont(Font.font("Courier New",15));
@@ -50,15 +57,17 @@ public class BattlePanel extends AnchorPane implements Logs {
         textFlow2.getChildren().addAll(text9,text4,text5,text6,text7);
 
         VBox vBox = new VBox();
-        vBox.resize(185,250);
+        vBox.resize((1.9*width)/12,(2.5*height)/7);
         vBox.getChildren().add(textFlow);
         vBox.getChildren().add(textFlow2);
         getChildren().add(canvas);
         getChildren().add(vBox);
         textFlow.setTextAlignment(TextAlignment.CENTER);
         textFlow2.setTextAlignment(TextAlignment.CENTER);
-        AnchorPane.setLeftAnchor(vBox, 20.);
-        AnchorPane.setTopAnchor(vBox, 40.);
+        System.out.println(textFlow.getParent().getLayoutBounds().getWidth()/2);
+
+        AnchorPane.setLeftAnchor(vBox, (0.2*width)/12);
+        AnchorPane.setTopAnchor(vBox, (0.4*height)/7);
     }
 
 

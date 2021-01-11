@@ -1,6 +1,7 @@
 package GUI.BattleBar;
 
 import GUI.Utils.Game;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,11 +12,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Screen;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class TerritoryInfo extends HBox {
+
+    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    public double width =  screenBounds.getWidth();
+    public double height =  screenBounds.getHeight();
 
     private Game.COLOR color;
     private int force;
@@ -30,10 +36,10 @@ public class TerritoryInfo extends HBox {
         force = 1;
         AnchorPane anchorPane = new AnchorPane();
         canvas = new Canvas();
-        canvas.setHeight(200);
-        canvas.setWidth(400);
+        canvas.setHeight((2*height)/7);
+        canvas.setWidth(width/3);
         canvas.getGraphicsContext2D().setFill(Color.BLACK);
-        canvas.getGraphicsContext2D().fillRect(0,0,400,200);
+        canvas.getGraphicsContext2D().fillRect(0,0,width/3,(2*height)/7);
         anchorPane.getChildren().add(canvas);
         VBox vBox = new VBox();
         textFlow = new TextFlow();
@@ -52,13 +58,13 @@ public class TerritoryInfo extends HBox {
         textFlow.getChildren().addAll(colortext1,colortext,forcetext1,forcetext);
         vBox.getChildren().add(textFlow);
         anchorPane.getChildren().add(textFlow);
-        AnchorPane.setTopAnchor(textFlow,10.);
-        AnchorPane.setLeftAnchor(textFlow,10.);
+        AnchorPane.setTopAnchor(textFlow,(0.1*height)/7);
+        AnchorPane.setLeftAnchor(textFlow,(0.1*width)/12);
         getChildren().add(anchorPane);
         imageView2 = new ImageView(new Image("Assets/blank.png"));
         anchorPane.getChildren().add(imageView2);
-        AnchorPane.setLeftAnchor(imageView2,200.);
-        AnchorPane.setTopAnchor(imageView2,30.);
+        AnchorPane.setLeftAnchor(imageView2,(2*width)/12);
+        AnchorPane.setTopAnchor(imageView2,(0.3*height)/7);
     }
 
     public void updateInfo(int force, Game.COLOR color) throws FileNotFoundException {
@@ -66,7 +72,7 @@ public class TerritoryInfo extends HBox {
         this.color = color;
         this.force = force;
         canvas.getGraphicsContext2D().setFill(Game.turnBackground(color));
-        canvas.getGraphicsContext2D().fillRect(0,0,400,200);
+        canvas.getGraphicsContext2D().fillRect(0,0,width/3,(2*height)/7);
         Text colortext = new Text(Game.colorToString(color)+"\n\n");
         colortext.setFill(Game.colorRgb(color));
         colortext.setFont(Font.font("Courier New",15));
@@ -88,7 +94,7 @@ public class TerritoryInfo extends HBox {
     public void setBlank(){
         blanck = true;
         canvas.getGraphicsContext2D().setFill(Color.BLACK);
-        canvas.getGraphicsContext2D().fillRect(0,0,400,200);
+        canvas.getGraphicsContext2D().fillRect(0,0,width/3,(2*height)/7);
         Text colortext = new Text("-\n\n");
         colortext.setFill(Color.WHITE);
         colortext.setFont(Font.font("Courier New",15));

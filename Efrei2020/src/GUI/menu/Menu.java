@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -17,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -25,6 +27,10 @@ import java.util.TimerTask;
 
 
 public class Menu extends AnchorPane {
+
+    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    public double width =  screenBounds.getWidth();
+    public double height =  screenBounds.getHeight();
 
     public ImageView fondMap;
     int x,y = -1;
@@ -36,7 +42,7 @@ public class Menu extends AnchorPane {
             x  =  -1;
         }
         //Stoppper droite
-        if(fondMap.getX() == -1534){
+        if(fondMap.getX() == -(2734-width)){
             x  =  1;
         }
         //Stoppper haut
@@ -44,7 +50,7 @@ public class Menu extends AnchorPane {
             y  =  -1;
         }
         //Stoppper bas
-        if(fondMap.getY() == -1650){
+        if(fondMap.getY() == -(2350-height)){
             y  =  1;
         }
 
@@ -52,11 +58,11 @@ public class Menu extends AnchorPane {
         fondMap.setY(fondMap.getY()+y);
 
         //Dépassement
-        if(fondMap.getX() <= -1541){
-            fondMap.setX(-1541);
+        if(fondMap.getX() <= -(2734-width)){
+            fondMap.setX(-(2734-width));
         }
-        if(fondMap.getY() <= -1662){
-            fondMap.setY(-1662);
+        if(fondMap.getY() <= -(2350-height)){
+            fondMap.setY(-(2350-height));
         }
     }
 
@@ -70,7 +76,7 @@ public class Menu extends AnchorPane {
         Stage newStage  = new Stage();
         newStage.setTitle("Dice War");
 
-        newStage.setScene(new Scene(nouvellepartie, 1200, 700));
+        newStage.setScene(new Scene(nouvellepartie,  screenBounds.getWidth()-10, screenBounds.getHeight()));
         newStage.setResizable(false);
         newStage.show();
 
@@ -127,12 +133,12 @@ public class Menu extends AnchorPane {
         chargerpartieBut.setMinWidth(150.);
 
         //Positionnement
-        AnchorPane.setLeftAnchor(nouvellepartieBut,530.);
-        AnchorPane.setTopAnchor(nouvellepartieBut,270.);
-        AnchorPane.setLeftAnchor(chargerpartieBut,530.);
-        AnchorPane.setTopAnchor(chargerpartieBut,380.);
-        AnchorPane.setLeftAnchor(text,470.);
-        AnchorPane.setTopAnchor(text,100.);
+        AnchorPane.setLeftAnchor(nouvellepartieBut, (width*0.5)-75);
+        AnchorPane.setTopAnchor(nouvellepartieBut,(height*0.5));
+        AnchorPane.setLeftAnchor(chargerpartieBut,(width*0.5)-75);
+        AnchorPane.setTopAnchor(chargerpartieBut,(height*0.6));
+        AnchorPane.setLeftAnchor(text,(width*0.5)-(text.getLayoutBounds().getWidth()/2));
+        AnchorPane.setTopAnchor(text,(height*0.35)-(text.getLayoutBounds().getHeight()/2));
         getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
 
 

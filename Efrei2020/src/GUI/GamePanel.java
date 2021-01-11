@@ -5,6 +5,7 @@ import GUI.logs.LogPanel;
 import Gameplay.PlateauJeu;
 import Geometry.HexagonCase;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,6 +21,9 @@ import java.util.Date;
 
 public class GamePanel extends AnchorPane {
 
+    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    public double width =  screenBounds.getWidth();
+    public double height =  screenBounds.getHeight();
     public PlateauJeu plateauJeu;
 
     public GamePanel(String path){
@@ -30,9 +35,9 @@ public class GamePanel extends AnchorPane {
         Button label = new Button("Save game");
         label.setOnMouseClicked(event -> saveGame());
         label.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
-        Canvas canvas = new Canvas(3000,3000);
+        Canvas canvas = new Canvas(2000,2000);
         canvas.getGraphicsContext2D().setFill(Color.rgb(5,20,3));
-        canvas.getGraphicsContext2D().fillRect(0,0,3000,3000);
+        canvas.getGraphicsContext2D().fillRect(0,0,2000,2000);
         AnchorPane spritePane = new AnchorPane();
         LogPanel logPanel = null;
         try {
@@ -58,10 +63,10 @@ public class GamePanel extends AnchorPane {
         scrollPane.setFitToWidth(true);
         anchorPane.getChildren().add(scrollPane);
         anchorPane.getChildren().add(label);
-        scrollPane.setMaxSize(1000,500);
+        scrollPane.setMaxSize((10*width)/12,(5*height)/7);
         scrollPane.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
-        AnchorPane.setTopAnchor(label,40.);
-        AnchorPane.setLeftAnchor(label,40.);
+        AnchorPane.setTopAnchor(label,(0.4*height)/7);
+        AnchorPane.setLeftAnchor(label,(0.4*width)/12);
         mainPane.setCenter(anchorPane);
         AnchorPane bottom = new AnchorPane();
         bottom.getChildren().add(battleBar);
@@ -69,10 +74,10 @@ public class GamePanel extends AnchorPane {
         mainPane.setRight(logPanel);
         mainPane.setPadding(new Insets(0));
         Canvas background = new Canvas();
-        background.setWidth(1200);
-        background.setHeight(700);
+        background.setWidth(width);
+        background.setHeight(height);
         background.getGraphicsContext2D().setFill(Color.BLACK);
-        background.getGraphicsContext2D().fillRect(0,0,1200,700);
+        background.getGraphicsContext2D().fillRect(0,0,width,height);
         getChildren().add(background);
         getChildren().add(mainPane);
     }
@@ -85,9 +90,9 @@ public class GamePanel extends AnchorPane {
         Button label = new Button("Save game");
         label.setOnMouseClicked(event -> saveGame());
         label.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
-        Canvas canvas = new Canvas(3000,3000);
+        Canvas canvas = new Canvas(2000,2000);
         canvas.getGraphicsContext2D().setFill(Color.rgb(5,20,3));
-        canvas.getGraphicsContext2D().fillRect(0,0,3000,3000);
+        canvas.getGraphicsContext2D().fillRect(0,0,2000,2000);
         AnchorPane spritePane = new AnchorPane();
         LogPanel logPanel = null;
         try {
@@ -108,10 +113,10 @@ public class GamePanel extends AnchorPane {
         scrollPane.setFitToWidth(true);
         anchorPane.getChildren().add(scrollPane);
         anchorPane.getChildren().add(label);
-        scrollPane.setMaxSize(1000,500);
+        scrollPane.setMaxSize((10*width)/12,(5*height)/7);
         scrollPane.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
-        AnchorPane.setTopAnchor(label,430.);
-        AnchorPane.setLeftAnchor(label,880.);
+        AnchorPane.setTopAnchor(label,(4.3*height)/7);
+        AnchorPane.setLeftAnchor(label,(8.8*width)/12);
         mainPane.setCenter(anchorPane);
         AnchorPane bottom = new AnchorPane();
         bottom.getChildren().add(battleBar);
@@ -119,10 +124,10 @@ public class GamePanel extends AnchorPane {
         mainPane.setRight(logPanel);
         mainPane.setPadding(new Insets(0));
         Canvas background = new Canvas();
-        background.setWidth(1200);
-        background.setHeight(700);
+        background.setWidth(width);
+        background.setHeight(height);
         background.getGraphicsContext2D().setFill(Color.BLACK);
-        background.getGraphicsContext2D().fillRect(0,0,1200,700);
+        background.getGraphicsContext2D().fillRect(0,0,width,height);
         getChildren().add(background);
         getChildren().add(mainPane);
     }
