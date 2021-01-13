@@ -159,7 +159,7 @@ public class CreationPartie extends AnchorPane {
 
 
 
-        Text text = new Text("Saisir le nombre de joueur");
+        Text text = new Text("Saisir le nombre de joueurs");
         text.setFill(Color.GREEN);
         text.setFont(Font.font(23));
 
