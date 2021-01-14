@@ -11,10 +11,9 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 
-public class testMenu extends Application {
+public class Jeu extends Application {
 
-    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-
+    private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -22,11 +21,11 @@ public class testMenu extends Application {
 
         Menu mainPane = new Menu();
 
-
         primaryStage.setScene(new Scene(mainPane, screenBounds.getWidth()-10, screenBounds.getHeight()));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
+
 
     public static void main(String[] args){
         launch(args);

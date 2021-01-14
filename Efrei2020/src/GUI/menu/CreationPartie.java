@@ -24,44 +24,12 @@ import javafx.util.Duration;
 
 public class CreationPartie extends AnchorPane {
 
-    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-    public double width =  screenBounds.getWidth();
-    public double height =  screenBounds.getHeight();
-    public ImageView fondMap;
-    public TextField choixJ;
-    public int nbPlayer;
-    int x,y = -1;
+    private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    private double width =  screenBounds.getWidth();
+    private double height =  screenBounds.getHeight();
+    private TextField choixJ;
+    private int nbPlayer;
 
-
-    public void mouvFond() {
-        //Stoppper gauche
-        if(fondMap.getX() == 0){
-            x  =  -1;
-        }
-        //Stoppper droite
-        if(fondMap.getX() == -(2734-width)){
-            x  =  1;
-        }
-        //Stoppper haut
-        if(fondMap.getY() == 0){
-            y  =  -1;
-        }
-        //Stoppper bas
-        if(fondMap.getY() == -(2350-height)){
-            y  =  1;
-        }
-
-        fondMap.setX(fondMap.getX()+x);
-        fondMap.setY(fondMap.getY()+y);
-
-        //Dépassement
-        if(fondMap.getX() <= -(2734-width)){
-            fondMap.setX(-(2734-width));
-        }
-        if(fondMap.getY() <= -(2350-height)){
-            fondMap.setY(-(2350-height));
-        }
-    }
 
     public boolean estUnEntierValide(String chaine) {
         try {
@@ -108,7 +76,8 @@ public class CreationPartie extends AnchorPane {
         super();
 
         //Fond
-        fondMap = new ImageView(new Image("Assets/DiceWarsMap.png"));
+        FondThread fond = new FondThread();
+        fond.start();
 
         //selection du nombre de joueurs
         choixJ = new TextField();
@@ -143,29 +112,13 @@ public class CreationPartie extends AnchorPane {
             }
         });
 
-        Timeline fiveSecondsWonder = new Timeline(
-                new KeyFrame(Duration.seconds(0.04),
-                        new EventHandler<ActionEvent>() {
-
-                            @Override
-                            public void handle(ActionEvent event) {
-
-                                mouvFond();
-
-                            }
-                        }));
-        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondsWonder.play();
-
-
-
         Text text = new Text("Saisir le nombre de joueurs");
         text.setFill(Color.GREEN);
         text.setFont(Font.font(23));
 
 
         //Ajout des éléments dans l'Anchor
-        getChildren().add(fondMap);
+        getChildren().add(fond.getFondMap());
         getChildren().add(lancerjeuBut);
         getChildren().add(text);
         getChildren().add(choixJ);

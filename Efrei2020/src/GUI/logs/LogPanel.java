@@ -15,9 +15,9 @@ import java.io.FileNotFoundException;
 
 public class LogPanel extends VBox  {
 
-    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-    public double width =  screenBounds.getWidth();
-    public double height =  screenBounds.getHeight();
+    private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    private double width =  screenBounds.getWidth();
+    private double height =  screenBounds.getHeight();
     VBox vBox;
 
     public LogPanel() throws FileNotFoundException {

@@ -19,9 +19,9 @@ import java.io.FileNotFoundException;
 
 public class TerritoryInfo extends HBox {
 
-    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-    public double width =  screenBounds.getWidth();
-    public double height =  screenBounds.getHeight();
+    private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    private double width =  screenBounds.getWidth();
+    private double height =  screenBounds.getHeight();
 
     private Game.COLOR color;
     private int force;

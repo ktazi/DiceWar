@@ -15,9 +15,9 @@ import javafx.stage.Screen;
 
 public class BattlePanel extends AnchorPane implements Logs {
 
-    public Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-    public double width =  screenBounds.getWidth();
-    public double height =  screenBounds.getHeight();
+    private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    private double width =  screenBounds.getWidth();
+    private double height =  screenBounds.getHeight();
 
     public BattlePanel(Game.COLOR player1, Game.COLOR player2, int points1, int points2, boolean victory){
         super();
