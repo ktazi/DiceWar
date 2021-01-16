@@ -2,6 +2,7 @@ package GUI.logs;
 
 import GUI.Utils.Game;
 import GUI.logs.Logs;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
@@ -43,7 +44,7 @@ public class TurnPanel extends AnchorPane implements Logs {
         getChildren().add(vBox);
         text.setTextAlignment(TextAlignment.CENTER);
         AnchorPane.setLeftAnchor(vBox, (0.46*width)/12);
-
+        vBox.setAlignment(Pos.CENTER);
     }
 
 }

@@ -1,11 +1,11 @@
 package GUI.logs;
 
 import GUI.Utils.Game;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -27,6 +27,7 @@ public class BattlePanel extends AnchorPane implements Logs {
         canvas.getGraphicsContext2D().setFill(Color.BLACK);
         canvas.getGraphicsContext2D().fillRect(0,0,(1.9*width)/12,(2.5*height)/7);
         TextFlow textFlow = new TextFlow();
+        textFlow.setPrefWidth((1.9*width)/24);
         Text text = new Text(Game.colorToString(player1));
         text.setFont(Font.font("Courier New",15));
         text.setFill(Game.colorRgb(player1));
@@ -42,6 +43,7 @@ public class BattlePanel extends AnchorPane implements Logs {
         textFlow.getChildren().addAll(text,text2,text3);
 
         TextFlow textFlow2 = new TextFlow();
+        textFlow2.setPrefWidth((1.9*width)/24);
         Text text4 = new Text(victory?" won\n\n" : " lost\n\n");
         text4.setFont(Font.font("Courier New",15));
         text4.setFill(Color.WHITE);
@@ -64,9 +66,7 @@ public class BattlePanel extends AnchorPane implements Logs {
         getChildren().add(vBox);
         textFlow.setTextAlignment(TextAlignment.CENTER);
         textFlow2.setTextAlignment(TextAlignment.CENTER);
-        System.out.println(textFlow.getParent().getLayoutBounds().getWidth()/2);
-
-        AnchorPane.setLeftAnchor(vBox, (0.2*width)/12);
+        AnchorPane.setLeftAnchor(vBox, ((1.9*width)/24)-(textFlow.prefWidthProperty().getValue()/2));
         AnchorPane.setTopAnchor(vBox, (0.4*height)/7);
     }
 

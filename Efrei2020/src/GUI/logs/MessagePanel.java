@@ -29,6 +29,6 @@ public class MessagePanel extends AnchorPane implements Logs {
         getChildren().add(canvas);
         getChildren().add(text1);
         AnchorPane.setTopAnchor(text1,(0.5*height)/7);
-        AnchorPane.setLeftAnchor(text1,(0.1*width)/12);
+        AnchorPane.setLeftAnchor(text1,((1.9*width)/24)-(text1.getLayoutBounds().getWidth()/2));
     }
 }
