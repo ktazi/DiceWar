@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public class GamePanel extends AnchorPane {
         AnchorPane anchorPane = new AnchorPane();
         ScrollPane scrollPane = new ScrollPane();
         Group root = new Group();
+        Button close = new Button("Close game");
+        close.setOnMouseClicked(event -> closeGame());
+        close.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
         Button label = new Button("Save game");
         label.setOnMouseClicked(event -> saveGame());
         label.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
@@ -64,10 +68,13 @@ public class GamePanel extends AnchorPane {
         scrollPane.setFitToWidth(true);
         anchorPane.getChildren().add(scrollPane);
         anchorPane.getChildren().add(label);
+        anchorPane.getChildren().add(close);
         scrollPane.setMaxSize((10*width)/12,(5*height)/7);
         scrollPane.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
-        AnchorPane.setTopAnchor(label,(0.4*height)/7);
-        AnchorPane.setLeftAnchor(label,(0.4*width)/12);
+        AnchorPane.setTopAnchor(label,(4.3*height)/7);
+        AnchorPane.setLeftAnchor(label,(8.8*width)/12);
+        AnchorPane.setTopAnchor(close,(3.8*height)/7);
+        AnchorPane.setLeftAnchor(close,(8.8*width)/12);
         mainPane.setCenter(anchorPane);
         AnchorPane bottom = new AnchorPane();
         bottom.getChildren().add(battleBar);
@@ -88,6 +95,9 @@ public class GamePanel extends AnchorPane {
         AnchorPane anchorPane = new AnchorPane();
         ScrollPane scrollPane = new ScrollPane();
         Group root = new Group();
+        Button close = new Button("Close game");
+        close.setOnMouseClicked(event -> closeGame());
+        close.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
         Button label = new Button("Save game");
         label.setOnMouseClicked(event -> saveGame());
         label.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
@@ -114,10 +124,13 @@ public class GamePanel extends AnchorPane {
         scrollPane.setFitToWidth(true);
         anchorPane.getChildren().add(scrollPane);
         anchorPane.getChildren().add(label);
+        anchorPane.getChildren().add(close);
         scrollPane.setMaxSize((10*width)/12,(5*height)/7);
         scrollPane.getStylesheets().add(this.getClass().getResource("Style.css").toExternalForm());
         AnchorPane.setTopAnchor(label,(4.3*height)/7);
         AnchorPane.setLeftAnchor(label,(8.8*width)/12);
+        AnchorPane.setTopAnchor(close,(3.8*height)/7);
+        AnchorPane.setLeftAnchor(close,(8.8*width)/12);
         mainPane.setCenter(anchorPane);
         AnchorPane bottom = new AnchorPane();
         bottom.getChildren().add(battleBar);
@@ -136,5 +149,9 @@ public class GamePanel extends AnchorPane {
     private void saveGame() {
         PlateauClone plateauClone= plateauJeu.createClone();
         plateauClone.serializeSelf();
+    }
+    private void closeGame(){
+        Stage actuelStage = (Stage) this.getScene().getWindow();
+        actuelStage.close();
     }
 }

@@ -51,7 +51,7 @@ public class CreationPartie extends AnchorPane {
 
 
         newStage.setScene(new Scene(mainPane, width-10, height));
-        //newStage.setResizable(false);
+        newStage.setResizable(false);
         newStage.show();
 
         Stage actuelStage = (Stage) this.getScene().getWindow();

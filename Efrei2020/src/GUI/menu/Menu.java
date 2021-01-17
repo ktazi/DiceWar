@@ -31,7 +31,7 @@ public class Menu extends AnchorPane {
         newStage.setTitle("Dice War");
 
         newStage.setScene(new Scene(mainPane, width-10, height));
-        //newStage.setResizable(false);
+        newStage.setResizable(false);
         newStage.show();
 
         Stage actuelStage = (Stage) this.getScene().getWindow();
