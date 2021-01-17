@@ -34,8 +34,7 @@ public class Menu extends AnchorPane {
         newStage.setResizable(false);
         newStage.show();
 
-        Stage actuelStage = (Stage) this.getScene().getWindow();
-        actuelStage.close();
+        closeGame();
     }
 
     public void nouvellePartie() {
@@ -48,6 +47,10 @@ public class Menu extends AnchorPane {
         newStage.setResizable(false);
         newStage.show();
 
+        closeGame();
+    }
+
+    private void closeGame(){
         Stage actuelStage = (Stage) this.getScene().getWindow();
         actuelStage.close();
     }
@@ -59,6 +62,9 @@ public class Menu extends AnchorPane {
         //Fond
         FondThread fond = new FondThread();
         fond.start();
+
+        Button close = new Button("Close game");
+        close.setOnMouseClicked(event -> closeGame());
 
         //Button lancement du jeu
         Button nouvellepartieBut = new Button("Nouvelle partie");
@@ -80,6 +86,7 @@ public class Menu extends AnchorPane {
         getChildren().add(fond.getFondMap());
         getChildren().add(nouvellepartieBut);
         getChildren().add(chargerpartieBut);
+        getChildren().add(close);
         getChildren().add(text);
 
         nouvellepartieBut.setMinWidth(150.);
@@ -92,6 +99,8 @@ public class Menu extends AnchorPane {
         AnchorPane.setTopAnchor(chargerpartieBut,(height*0.6));
         AnchorPane.setLeftAnchor(text,(width*0.5)-(text.getLayoutBounds().getWidth()/2));
         AnchorPane.setTopAnchor(text,(height*0.35)-(text.getLayoutBounds().getHeight()/2));
+        AnchorPane.setLeftAnchor(close,10.);
+        AnchorPane.setTopAnchor(close,10.);
         getStylesheets().add(this.getClass().getResource("../Style.css").toExternalForm());
 
 
