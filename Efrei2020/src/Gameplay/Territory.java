@@ -29,7 +29,6 @@ public class Territory implements Serializable {
     private int tempidplayer;
 
     public Territory(ArrayList<HexagonCase> tiles, SelectionTerritoryPanel territoryInfo, int idTerritory, AnchorPane spritePane){
-        System.out.println("TEST");
         player = null;
         this.idTerritory = idTerritory;
         force = 1;
@@ -43,7 +42,6 @@ public class Territory implements Serializable {
         idAdjTerritories = new TreeSet<>();
     }
     public Territory(ArrayList<HexagonCase> tiles, SelectionTerritoryPanel territoryInfo, int idTerritory, AnchorPane spritePane, TreeSet<Integer>idAdjTerritories){
-        System.out.println("test");
         player = null;
         this.idTerritory = idTerritory;
         force = 1;
@@ -161,4 +159,11 @@ public class Territory implements Serializable {
         return idAdjTerritories.contains(territory.idTerritory);
     }
 
+
+    @Override
+    public String toString(){
+        String ok = "Force = "+force;
+        return  ok +" Color = "+Game.colorToString(player.getColor());
+
+    }
 }

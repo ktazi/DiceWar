@@ -86,5 +86,28 @@ public class Player {
         return new PlayerClone(color, territories, idPlayer);
     }
 
-
+    public int nbTerritoireContiguMax(){
+        if (territories.size()<=0)
+            return 0;
+        ArrayList<ArrayList<Territory>> contigus = new ArrayList<>();
+        contigus.add(new ArrayList<>());
+        for (Territory territory : territories){
+            boolean added = false;
+            for (ArrayList<Territory> contigu : contigus){
+                for(int i = 0; i < contigu.size() && !added; i++){
+                    added = territory.areAdj(contigu.get(i));
+                    if (added)
+                        contigu.add(territory);
+                }
+            }
+            if(!added){
+                contigus.add(new ArrayList<>());
+                contigus.get(contigus.size()-1).add(territory);
+            }
+        }
+        int max = 0;
+        for (ArrayList<Territory> contigu : contigus)
+            max = Math.max(max, contigu.size());
+        return max;
+    }
 }

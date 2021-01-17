@@ -4,6 +4,7 @@ import GUI.BattleBar.BattleBar;
 import GUI.Utils.Game;
 import GUI.logs.MessagePanel;
 import GUI.logs.TurnPanel;
+import GUI.logs.WinPanel;
 import Geometry.HexagonCase;
 import Serialization.PlateauClone;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,6 +19,7 @@ public class PlateauJeu  implements Serializable {
     private ArrayList<Player> players;
     private Player currentPlayer;
     public final static int NB_HEXAGONS= 25;
+    private BattleBar battleBar;
 
     //constructor for new game
     public PlateauJeu(int nbTerritory, GraphicsContext graphicsContext, BattleBar battleBar, int nbPlayer, AnchorPane spritePane){
@@ -130,11 +132,14 @@ public class PlateauJeu  implements Serializable {
         return currentPlayer;
     }
     public Game.COLOR changeTurn(){
-        //add 3 of force to player
-
-        getCurrentPlayer().addForce(3);
+        //add force to player
+        getCurrentPlayer().addForce(currentPlayer.nbTerritoireContiguMax());
         //remove a loser if there is one
         players.removeIf(player -> player.getTerritories().size() == 0);
+        //Victory
+        if (players.size() == 1){
+            return null;
+        }
         //choose new player
         choosePlayer();
         return getCurrentPlayer().getColor();

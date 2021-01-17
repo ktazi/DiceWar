@@ -1,6 +1,8 @@
 package GUI.BattleBar;
 
+import GUI.Utils.Game;
 import GUI.logs.TurnPanel;
+import GUI.logs.WinPanel;
 import Gameplay.PlateauJeu;
 import Gameplay.Territory;
 import javafx.geometry.Rectangle2D;
@@ -113,7 +115,13 @@ public class SelectionTerritoryPanel extends HBox {
         territory1Selected = null;
         territory2Selected = null;
         try {
-            parent.logPanel.addPanel(new TurnPanel(plateauJeu.changeTurn()));
+            Game.COLOR color = plateauJeu.changeTurn();
+            if (color != null)
+                parent.logPanel.addPanel(new TurnPanel(color));
+            else {
+                parent.logPanel.addPanel(new WinPanel(plateauJeu.getCurrentPlayer().getColor()));
+                pass.setDisable(true);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

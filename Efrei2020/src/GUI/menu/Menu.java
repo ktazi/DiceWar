@@ -2,30 +2,17 @@ package GUI.menu;
 
 
 import GUI.GamePanel;
-import GUI.Main;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
 import java.io.File;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 
 public class Menu extends AnchorPane {

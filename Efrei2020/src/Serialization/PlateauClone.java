@@ -76,11 +76,19 @@ public class PlateauClone implements Serializable {
             for (Player player : play) {
                 if (player.getIdPlayer() == territory.get(i).getTempidplayer()){
                     territory.get(i).setPlayer(player);
+                    player.getTerritories().add(territory.get(i));
                 }
             }
             i++;
         }
-        Player currentPlay = currentPlayer.convert(territoryInfo, spritePane);
+        int currentPlayId = currentPlayer.convert(territoryInfo, spritePane).getIdPlayer();
+        Player currentPlay = null;
+        for (int j = 0; j < play.size(); j++){
+            if (currentPlayId == play.get(j).getIdPlayer())
+                currentPlay = play.get(j);
+        }
+        if (currentPlay == null)
+            currentPlay = play.get(0);
         return new PlateauJeu(til, territory, play, currentPlay, battleBar);
     }
 
