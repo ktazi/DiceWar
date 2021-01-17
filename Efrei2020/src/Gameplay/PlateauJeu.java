@@ -5,6 +5,7 @@ import GUI.Utils.Game;
 import GUI.logs.MessagePanel;
 import GUI.logs.TurnPanel;
 import Geometry.HexagonCase;
+import Serialization.PlateauClone;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 
@@ -83,11 +84,34 @@ public class PlateauJeu  implements Serializable {
         }
         //creation of players
         players = Player.createPlayers(nbPlayer, territories);
-        for (Player player : players){
-            System.out.println(player.getColor());
-        }
         //choosing the first that plays
         choosePlayer();
+        battleBar.getLogPanel().addPanel(new MessagePanel("Welcome to DiceWars !\nThis game was developed \nin 2020 for\nan academic project."));
+        try {
+            battleBar.getLogPanel().addPanel(new TurnPanel(getCurrentPlayer().getColor()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        battleBar.getSelectionTerritoryPanel().setPlateauJeu(this);
+    }
+    //constructeur pour serialisation
+    public PlateauJeu(ArrayList<ArrayList<HexagonCase>> tiles,
+                      ArrayList<Territory> territories,
+                      ArrayList<Player> players,
+                      Player currentPlayer,
+                      BattleBar battleBar){
+        this.tiles = tiles;
+        this.players = players;
+        this.currentPlayer = currentPlayer;
+        this.territories = territories;
+        for (Territory territory : this.territories){
+            ArrayList<HexagonCase> tab = territory.getTiles();
+            for (HexagonCase t : tab){
+                this.tiles.get(t.getOffsetx()).set(t.getOffsety(), t);
+                t.setTerritory(territory);
+                t.setTerritoryId(territory.getIdTerritory());
+            }
+        }
         battleBar.getLogPanel().addPanel(new MessagePanel("Welcome to DiceWars !\nThis game was developed \nin 2020 for\nan academic project."));
         try {
             battleBar.getLogPanel().addPanel(new TurnPanel(getCurrentPlayer().getColor()));
@@ -116,14 +140,9 @@ public class PlateauJeu  implements Serializable {
         return getCurrentPlayer().getColor();
     }
 
-    public void serializePlateau(File file) throws IOException {
-        ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file)) ;
-        outputStream.writeObject(this) ;
+    public PlateauClone createClone(){
+        return new PlateauClone(tiles, territories, players, currentPlayer);
     }
 
-    public static PlateauJeu deserialize(String path) throws IOException, ClassNotFoundException {
-        File fichier =  new File(path) ;
-        ObjectInputStream objectInputStream =  new ObjectInputStream(new FileInputStream(fichier)) ;
-        return (PlateauJeu)objectInputStream.readObject();
-    }
+
 }

@@ -4,6 +4,7 @@ import GUI.BattleBar.BattleBar;
 import GUI.logs.LogPanel;
 import Gameplay.PlateauJeu;
 import Geometry.HexagonCase;
+import Serialization.PlateauClone;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -26,7 +27,7 @@ public class GamePanel extends AnchorPane {
     public double height =  screenBounds.getHeight();
     public PlateauJeu plateauJeu;
 
-    public GamePanel(String path){
+    public GamePanel(){
         super();
         BorderPane mainPane = new BorderPane();
         AnchorPane anchorPane = new AnchorPane();
@@ -48,7 +49,7 @@ public class GamePanel extends AnchorPane {
         BattleBar battleBar = new BattleBar(logPanel);
         plateauJeu = null;
         try {
-            plateauJeu = PlateauJeu.deserialize(path);
+            plateauJeu = PlateauClone.deserializeSelf(battleBar.getSelectionTerritoryPanel(), spritePane, battleBar);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,16 +134,7 @@ public class GamePanel extends AnchorPane {
     }
 
     private void saveGame() {
-        File fichier = new File("game_"+new Date().toString()+".sav");
-        int i = 1;
-        while (fichier.exists()){
-            fichier = new File("game_"+new Date().toString()+"("+i+")"+".sav");
-        }
-        try {
-            fichier.createNewFile();
-            plateauJeu.serializePlateau(fichier);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PlateauClone plateauClone= plateauJeu.createClone();
+        plateauClone.serializeSelf();
     }
 }

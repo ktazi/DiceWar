@@ -1,6 +1,7 @@
 package GUI.menu;
 
 
+import GUI.GamePanel;
 import GUI.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,6 +23,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,6 +38,17 @@ public class Menu extends AnchorPane {
 
     public void chargerPartie(){
 
+        GamePanel mainPane = new GamePanel();
+
+        Stage newStage = new Stage();
+        newStage.setTitle("Dice War");
+
+        newStage.setScene(new Scene(mainPane, width-10, height));
+        //newStage.setResizable(false);
+        newStage.show();
+
+        Stage actuelStage = (Stage) this.getScene().getWindow();
+        actuelStage.close();
     }
 
     public void nouvellePartie() {
@@ -60,15 +73,16 @@ public class Menu extends AnchorPane {
         FondThread fond = new FondThread();
         fond.start();
 
-
-
         //Button lancement du jeu
         Button nouvellepartieBut = new Button("Nouvelle partie");
         Button chargerpartieBut = new Button("Charger une partie");
 
         nouvellepartieBut.setOnMouseClicked(event -> nouvellePartie());
         chargerpartieBut.setOnMouseClicked(event -> chargerPartie());
-
+        //si il n'y a pas de sauvegardes
+        File sauv = new File("./carte.sav");
+        if (!sauv.exists())
+            chargerpartieBut.setDisable(true);
 
         Text text = new Text("Bienvenue dans Dice Wars");
         text.setFill(Color.GREEN);

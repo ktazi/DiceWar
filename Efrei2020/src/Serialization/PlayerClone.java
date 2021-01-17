@@ -21,13 +21,13 @@ public class PlayerClone implements Serializable {
             ArrayList<HexagonCaseClones> tileClones = new ArrayList<>();
             for (HexagonCase hexagonCase : territory.getTiles())
                 tileClones.add(new HexagonCaseClones(hexagonCase.getCenterX(),hexagonCase.getCenterY(), hexagonCase.getOffsetx(),hexagonCase.getOffsety()));
-            territoryClones.add(new TerritoryClone( territory.getIdAdjTerritories(), territory.getIdTerritory(), tileClones));
+            territoryClones.add(new TerritoryClone(territory.getIdAdjTerritories(), territory.getIdTerritory(), tileClones, idPlayer, territory.getForce()));
         }
         colorId = color.getValue();
         this.idPlayer = idPlayer;
     }
 
-    public Player convert(SelectionTerritoryPanel territoryInfo, AnchorPane spritePane){
+    public Player convert (SelectionTerritoryPanel territoryInfo, AnchorPane spritePane){
         ArrayList<Territory> territories = new ArrayList<>();
         for (TerritoryClone territory : territoryClones){
             territories.add(territory.convert(territoryInfo, spritePane));

@@ -10,7 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,28 +24,33 @@ public class Territory implements Serializable {
     private int force;
     private SelectionTerritoryPanel info;
     private int idTerritory;
-    private ImageView sprite;
+    private Text sprite;
     private TreeSet<Integer> idAdjTerritories;
+    private int tempidplayer;
 
     public Territory(ArrayList<HexagonCase> tiles, SelectionTerritoryPanel territoryInfo, int idTerritory, AnchorPane spritePane){
+        System.out.println("TEST");
         player = null;
         this.idTerritory = idTerritory;
         force = 1;
         this.tiles = tiles;
         info = territoryInfo;
-        sprite = new ImageView(new Image("Assets/three_blue64.png"));
+        sprite = new Text("");
+        sprite.setFill(Color.WHITE);
         spritePane.getChildren().add(sprite);
         AnchorPane.setTopAnchor(sprite,tiles.get(0).getCenterY()-(3*HexagonCase.SIZE/4));
         AnchorPane.setLeftAnchor(sprite,tiles.get(0).getCenterX()-(3*HexagonCase.SIZE/4));
         idAdjTerritories = new TreeSet<>();
     }
     public Territory(ArrayList<HexagonCase> tiles, SelectionTerritoryPanel territoryInfo, int idTerritory, AnchorPane spritePane, TreeSet<Integer>idAdjTerritories){
+        System.out.println("test");
         player = null;
         this.idTerritory = idTerritory;
         force = 1;
         this.tiles = tiles;
         info = territoryInfo;
-        sprite = new ImageView(new Image("Assets/three_blue64.png"));
+        sprite = new Text("");
+        sprite.setFill(Color.WHITE);
         spritePane.getChildren().add(sprite);
         AnchorPane.setTopAnchor(sprite,tiles.get(0).getCenterY()-(3*HexagonCase.SIZE/4));
         AnchorPane.setLeftAnchor(sprite,tiles.get(0).getCenterX()-(3*HexagonCase.SIZE/4));
@@ -84,11 +91,12 @@ public class Territory implements Serializable {
     }
 
     private void setForceImage(){
-        sprite.setImage(new Image("Assets/"+Game.forceToString(force)+"_"+Game.colorToString(player.getColor())+"64.png"));
+        sprite.setText(Integer.toString(force));
     }
     public void setForce(int force){
         this.force = force;
-        setForceImage();
+        if (player != null)
+            setForceImage();
     }
     public int getForce(){
         return force;
@@ -138,7 +146,15 @@ public class Territory implements Serializable {
         for (HexagonCase hexagonCase : tiles) {
             caseClones.add(hexagonCase.prepareSerialisation());
         }
-        return new TerritoryClone(getIdAdjTerritories(), idTerritory, caseClones);
+        return new TerritoryClone(getIdAdjTerritories(), idTerritory, caseClones, player.getIdPlayer(), force);
+    }
+
+    public void setTempidplayer(int tempidplayer){
+        this.tempidplayer = tempidplayer;
+    }
+
+    public int getTempidplayer(){
+        return tempidplayer;
     }
 
     public boolean areAdj(Territory territory) {
